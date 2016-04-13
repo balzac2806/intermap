@@ -16,7 +16,7 @@ class UserController extends Controller {
 
         // If The Credentials Is Valid
         if (!Auth::attempt($credentials)) {
-            return response('Podany login lub hasło jest nieprawidłowe !', 403);
+            return response('Podany login lub hasło jest nieprawidłowe !', 200);
         }
 
         return response(Auth::user(), 201);
