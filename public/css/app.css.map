@@ -1,0 +1,1 @@
+{"version":3,"sources":["app.scss"],"names":[],"mappings":"AACA;EACI,iCAAiC,EACpC","file":"app.css","sourcesContent":["// @import \"node_modules/bootstrap-sass/assets/stylesheets/bootstrap\";\nbody {\n    background-color: lightsteelblue; \n}"],"sourceRoot":"/source/"}
