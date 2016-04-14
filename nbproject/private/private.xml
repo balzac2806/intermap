@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/home/daniel/PHP5.5/intermap/resources/views/front/login.blade.php</file>
+            <file>file:/home/daniel/PHP5.5/intermap/front/app/scripts/app.js</file>
+            <file>file:/home/daniel/PHP5.5/intermap/app/Http/routes.php</file>
+            <file>file:/home/daniel/PHP5.5/intermap/front/app/scripts/body/bodyDirectives.js</file>
+            <file>file:/home/daniel/PHP5.5/intermap/resources/views/front/master.blade.php</file>
+            <file>file:/home/daniel/PHP5.5/intermap/app/Http/Controllers/UserController.php</file>
+            <file>file:/home/daniel/PHP5.5/intermap/front/app/scripts/body/bodyControllers.js</file>
+            <file>file:/home/daniel/PHP5.5/intermap/gulpfile.js</file>
+            <file>file:/home/daniel/PHP5.5/intermap/front/app/views/auth/login.tpl.html</file>
+        </group>
+    </open-files>
+</project-private>
