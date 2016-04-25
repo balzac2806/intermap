@@ -1,6 +1,17 @@
-interMap.controller('bodyController', ['$scope', '$http', '$location', 'growl', function ($scope, $http, $location, growl) {
+interMap.controller('bodyController', ['$scope', '$rootScope', '$http', '$state', '$location', 'growl', function ($scope, $rootScope, $http, $state, $location, growl) {
         
-        $scope.loggedUser = false;
+        $rootScope.$state = $state;
+        
+        $scope.admin = false;
+        
+        if(angular.isDefined($rootScope.loggedUser)) {
+            if($rootScope.loggedUser) {
+                $scope.loggedUser = true;
+            }
+        } else { 
+            $scope.loggedUser = false;
+            $state.go('login');
+        }
         
         angular.extend($scope, {
             logIn: function (loginForm) {
@@ -16,8 +27,11 @@ interMap.controller('bodyController', ['$scope', '$http', '$location', 'growl', 
                     }
                 }).success(function (response) {
                     if (response.success) {
+                        $rootScope.permissions = {};
+                        $rootScope.permissions.user = response.data;
+                        $rootScope.loggedUser = true;
                         $scope.loggedUser = true;
-                        $location.path('/dashboard');
+                        $state.go('dashboard');
                         growl.addSuccessMessage('Witaj ' + response.data.name + '!');
                     } else {
                         growl.addErrorMessage(response.error);
@@ -25,5 +39,20 @@ interMap.controller('bodyController', ['$scope', '$http', '$location', 'growl', 
                 });
             }
         });
+        
+        $scope.logout = function () {
+            $scope.loggedUser = false;
+            $rootScope.loggedUser = false;
+            $state.go('login');
+            growl.addErrorMessage('Zostałeś wylogowany ! Zapraszamy ponownie !');
+        }
+        
+        $scope.register = function () {
+            $state.go('register');
+        }
+        
+        $scope.adminMenu = function() {
+            $scope.admin = !$scope.admin;
+        }
     }]);
 

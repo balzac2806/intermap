@@ -1,0 +1,4 @@
+interMap.service('interMapAPI', [], function () {
+
+});
+
