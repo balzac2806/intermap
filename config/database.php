@@ -60,7 +60,7 @@ return [
             'strict' => false,
             'engine' => null,
         ],
-        // LOCAL
+        // LOCAL 
 //        'pgsql' => [
 //            'driver' => 'pgsql',
 //            'host' => env('DB_HOST', 'localhost'),
@@ -78,8 +78,8 @@ return [
             'host' => env('DB_HOST', 'localhost'),
             'port' => env('DB_PORT', '5432'),
             'database' => env('DB_DATABASE', 'intermap'),
-            'username' => env('DB_USERNAME', 'adminqxdg1bw'),
-            'password' => env('DB_PASSWORD', '_sdVKbj9UF6G'),
+            'username' => env('DB_USERNAME', 'adminppiznez'),
+            'password' => env('DB_PASSWORD', 'CAERwEy1e8nd'),
             'charset' => 'utf8',
             'prefix' => '',
             'schema' => 'public',
