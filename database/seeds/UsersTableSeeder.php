@@ -15,7 +15,8 @@ class UsersTableSeeder extends Seeder {
         User::create([
             'name' => 'Daniel Golubiewski',
             'email' => 'superadmin@intermap.pl',
-            'password' => Hash::make('intermap2016$..')
+            'password' => Hash::make('intermap2016$..'),
+            'role' => 'admin',
         ]);
     }
 
