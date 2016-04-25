@@ -17,4 +17,14 @@ Route::get('/', function () {
 });
 
 Route::post('auth', 'UserController@checkAuth');
+
+Route::post('register', 'AuthController@create');
+
+Route::post('api/user', 'UserController@store');
+Route::put('api/user/{id}', 'UserController@store');
+Route::get('api/user', 'UserController@create');
+Route::get('api/user/{id}', 'UserController@show');
+Route::delete('api/user/{id}', 'UserController@destroy');
+
+
 Route::resource('user', 'UserController');
