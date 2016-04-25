@@ -2,3 +2,34 @@
 body {
     background-color: lightsteelblue; 
 }
+
+.inner-addon { 
+    position: relative; 
+}
+
+/* Style Icon */
+.inner-addon .glyphicon {
+    position: absolute;
+    padding: 10px;
+    pointer-events: none;
+}
+
+/* Align Icon */
+.left-addon .glyphicon  {
+    left:  0px;
+}
+.right-addon .glyphicon { 
+    right: 0px;
+}
+
+/* Add Padding  */
+.left-addon input  { 
+    padding-left:  30px; 
+}
+.right-addon input { 
+    padding-right: 30px; 
+}
+
+.sidebar-list-child {
+    background-color: slategray;
+}
