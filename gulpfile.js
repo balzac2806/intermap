@@ -40,12 +40,19 @@ gulp.task('default', function () {
 
         mix.scripts([
             'dashboard/dashboardControllers.js',
-            'body/bodyControllers.js'
+            'body/bodyControllers.js',
+            'register/registerControllers.js',
+            'admin/adminControllers.js',
+            'users/usersControllers.js'
         ], 'public/front/scripts/controllers.js', 'front/app/scripts');
 
         mix.scripts([
             'body/bodyDirectives.js'
         ], 'public/front/scripts/directives.js', 'front/app/scripts');
+        
+        mix.scripts([
+            'body/bodyServices.js'
+        ], 'public/front/scripts/services.js', 'front/app/scripts');
 
     });
 });

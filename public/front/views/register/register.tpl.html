@@ -1,0 +1,34 @@
+<div class="col-md-4 col-md-push-4 col-sm-4 col-sm-push-4 col-xs-12 well">
+    <h1>Rejestracja</h1>
+    <form name="registerForm" ng-submit="registerIn(registerForm)">
+        <div class="form-group inner-addon left-addon">
+            <input type="email" class="form-control" name="email" ng-model="user.email" placeholder="Wpisz adres email..." required/>
+            <i class="glyphicon glyphicon-envelope"></i>
+        </div>
+        <div class="form-group">
+            <span ng-show="error.email" class="alert alert-danger">{{error.email[0]}}</span>
+        </div>
+        <div class="form-group inner-addon left-addon">
+            <input type="text" class="form-control" name="user_name" ng-model="user.user_name" placeholder="Wpisz nazwę użytkownika..." required/>
+            <i class="glyphicon glyphicon-user"></i>
+        </div>
+        <div class="form-group">
+            <span ng-show="error.user_name" class="alert alert-danger">{{error.user_name[0]}}</span>
+        </div>
+        <div class="form-group inner-addon left-addon">
+            <input type="password" class="form-control" name="password" ng-model="user.password" placeholder="Wpisz hasło..." required/>
+            <i class="glyphicon glyphicon-lock"></i>
+        </div>
+        <div class="form-group">
+            <span ng-show="error.password" class="alert alert-danger">{{error.password[0]}}</span>
+        </div>
+        <div class="form-group inner-addon left-addon">   
+            <input type="password" class="form-control" name="password" ng-model="user.password_confirmation" placeholder="Powtórz hasło..." required/>
+            <i class="glyphicon glyphicon-log-in"></i>
+        </div>
+        <div class="form-group">
+            <span ng-show="error.password_confirmation" class="alert alert-danger">{{error.password_confirmation[0]}}</span>
+        </div>
+        <input type="submit" class="btn btn-success" name="save" value="Rejestruj"/>
+    </form>
+</div>

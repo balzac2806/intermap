@@ -6816,6 +6816,7 @@ ul.sidebar .sidebar-list a {
     line-height: 40px;
     text-indent: 25px;
 }
+
 ul.sidebar .sidebar-list a:hover {
     border-left: 3px solid #e99d1a;
     color: #fff;

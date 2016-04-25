@@ -13,6 +13,13 @@
         <li class="sidebar-list">
             <a ui-sref="test">Test <span class="menu-icon fa fa-table"></span></a>
         </li>
+        <li ng-show="permissions.user.role == 'admin'" ng-click="adminMenu()" class="sidebar-list">
+            <a ui-sref="admin">Administracja <span class="menu-icon fa fa-university"></span></a>
+        <li ng-show="admin" class="sidebar-list sidebar-list-child">
+            <a ui-sref="users">Użytkownicy <span class="menu-icon fa fa-user"></span></a>
+        <li ng-show="admin" class="sidebar-list sidebar-list-child">
+            <a ui-sref="dashboard">Dashboard <span class="menu-icon fa fa-tachometer"></span></a>
+        </li>
     </ul>
     <div class="sidebar-footer">
         <div class="col-xs-4">
