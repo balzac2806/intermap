@@ -6,6 +6,9 @@
         <form name="rateForm">
             <fieldset>
                 <div class="form-group" ng-repeat="question in questions">
+                    <div class="form-group">
+                        <span ng-show="formErrors" class="alert alert-danger">Nie wszystkie pola zostały wypełnione !</span>
+                    </div>
                     <div ng-if="question.type == 'sex'">
                         <label class="control-label" for="{{question.id}}">{{question.description}}</label>
                         <select class="form-control" ng-model="rate.answers[question.id]">
@@ -23,7 +26,6 @@
                         </select>
                     </div>
                     <div ng-if="question.type == 'score'">
-                        {{error}}
                         <label class="control-label" for="{{question.id}}">Oceń w skali od 0 do 5. (0 - nie wiem, 1-5 - ocena)</label>
                         <label class="control-label" for="{{question.id}}">{{question.description}}</label><br/>
                         <input-stars max="5" ng-model="rate.answers[question.id]"></input-stars>

@@ -6953,3 +6953,7 @@ ul.sidebar .sidebar-list .menu-icon {
     display: block;
     font-size: 28px;
 }
+
+.actives {
+    color: #fff !important;
+}

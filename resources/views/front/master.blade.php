@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE>
 <html ng-app="interMap">
     <head>
         <title>InterMap</title>
@@ -6,6 +6,7 @@
         <link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}"/>
         <link rel="stylesheet" type="text/css" href="{{asset('css/main.css')}}"/>
         <link rel="stylesheet" type="text/css" href="{{asset('bower_components/angular-growl/build/angular-growl.min.css')}}"/>
+        <link rel="stylesheet" type="text/css" href="{{asset('bower_components/angular-input-stars-directive/angular-input-stars.css')}}"/>
     </head>
     <body ng-controller="bodyController">
         <!-- Widok Główny -->
@@ -55,6 +56,10 @@
         <script type="text/javascript" src="{{asset('bower_components/angular-ui-router/release/angular-ui-router.min.js')}}"></script>
         <script type="text/javascript" src="{{asset('bower_components/angular-growl/build/angular-growl.min.js')}}"></script>
         <script type="text/javascript" src="{{asset('bower_components/requirejs/require.js')}}"></script>
+        <script type="text/javascript" src="{{asset('bower_components/angular-bootstrap/ui-bootstrap.min.js')}}"></script>
+        <script type="text/javascript" src="{{asset('bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js')}}"></script>
+        <script type="text/javascript" src="{{asset('bower_components/angular-input-stars-directive/angular-input-stars.js')}}"></script>
+        <script type="text/javascript" src="{{asset('bower_components/angular-cookies/angular-cookies.js')}}"></script>
         <!-- Controllers --> 
         <script type="text/javascript" src="{{asset('front/scripts/app.js')}}"></script>
         <script type="text/javascript" src="{{asset('front/scripts/controllers.js')}}"></script>

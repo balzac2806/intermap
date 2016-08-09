@@ -10,7 +10,6 @@ interMap.controller('bodyController', ['$scope', '$rootScope', '$http', '$state'
         $rootScope.$state = $state;
         $scope.admin = false;
 
-        console.log($cookies);
         var loginStatus = $cookies.get('logged');
 
         if (angular.isDefined($rootScope.loggedUser) || loginStatus) {
@@ -471,6 +470,7 @@ interMap.controller('placeModalController', ['$scope', '$stateParams', '$rootSco
                         if (data.success) {
                             $uibModalInstance.close(data.rate);
                         } else {
+                            console.log('data', data);
                             if (typeof data.error === 'object') {
                                 $scope.formErrors = data.error;
                             } else {
@@ -788,7 +788,6 @@ interMap.controller('questionController', ['$scope', '$stateParams', '$rootScope
                                 growl.addSuccessMessage('Pytanie zostało zaktualizowane !');
                                 $state.go('poll');
                             } else {
-                                console.log(response);
                                 $scope.error = response.data.error;
                             }
                         });
