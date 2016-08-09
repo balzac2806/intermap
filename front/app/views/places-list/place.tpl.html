@@ -1,0 +1,83 @@
+<div class="wrapper-md">
+    <div class="panel panel-default">
+        <div class="panel-heading">{{place.name}}</div>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <h3>
+                        <strong>{{place.name}}</strong>                        
+                        <button ng-click="addRate(place.id)" class="btn btn-danger col-md-offset-1">Oceń</button>
+                    </h3>
+                    <hr/>
+                </div>
+            </div>
+            <div class="form-group" ng-if="!isLoading">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <div star-rating stars="5" outer-star-selection="stars" outer-percent="rating" rating-define="percent" rating-percent="{{place.rate * 20}}" star-radius="10" sel-color="gold" back-color=""></div>
+                        <label class="control-label">Ocena: {{place.rate}}/ Ilość: {{place.count}}</label>
+                    </div>
+                    <div class="form-group">
+                        <h4>{{place.description}}</h4>
+                    </div>
+                    <div class="form-group">
+                        <span class="control-label">Adres:</span>
+                        <p>{{place.address|| '-'}}</p>
+                        <p>{{place.post_code}} {{place.city}}</p>
+                    </div>
+                    <div class="form-group">
+                        Kontakt: {{place.phone}} / Strona: <a href="{{place.site}}">{{place.site}}</a>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <h4>Opinie</h4>
+                </div>
+                <table class="table table-hover" ng-hide="isLoading">
+                    <thead>
+                        <tr>
+                            <th>
+                            </th>
+                            <th>
+                                Treść
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="list" ng-repeat="opinion in opinions">
+                            <td class="col-md-2">
+                                <p>{{opinion.created_at}}</p>
+                                <p>{{users[opinion.pollster_id]}}</p>
+                            </td>
+                            <td class="col-md-10">
+                                {{opinion.opinion}}
+                            </td>
+                        </tr>
+                        <tr ng-if="opinions.length === 0">
+                            <td colspan="2" class="text-center">
+                                <h3>Brak Opinii !</h3>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <hr/>
+                    <textarea class="form-control" rows="5" ng-model="new_opinion.opinion" placeholder="Wpisz treść opinii..."></textarea>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <button ng-click="addOpinion(new_opinion)" class="btn btn-primary pull-right">Dodaj Opinię</button></p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <button ng-click="cancel()" class="btn btn-default">Wróć</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

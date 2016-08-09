@@ -29,7 +29,8 @@
             <tbody>
                 <tr ng-repeat="opinion in opinions">
                     <td>
-                        {{opinion.status}}
+                        <label ng-if="opinion.status == 10" class="label label-success">{{status[opinion.status]}}</label>
+                        <label ng-if="opinion.status == 5" class="label label-warning">{{status[opinion.status]}}</label>
                     </td>
                     <td>
                         {{opinion.opinion}}

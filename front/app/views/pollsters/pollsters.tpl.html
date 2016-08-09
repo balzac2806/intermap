@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="panel-body">
+        <div class="row">
+            <button ng-click="addPollster()" class="btn btn-primary pull-right">Dodaj Ankietera</button>
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+            <div>Email</div>
+            </th>
+            <th>
+            <div>Data Utworzenia</div>
+            </th>
+            <th>
+            <div>Data Modyfikacji</div>
+            </th>
+            <th>
+            <div>Akcje</div>
+            </th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="pollster in pollsters">
+                    <td>
+                        {{pollster.email}}
+                    </td>
+                    <td>
+                        {{pollster.created_at|| '-'}}
+                    </td>
+                    <td>
+                        {{pollster.updated_at|| '-'}}
+                    </td>
+                    <td>
+                        <span ng-click="remove($event, pollster.id)" style="float: right" class="btn btn-link btn-sm">
+                            <button class="btn btn-danger btn-addon"><i class="fa fa-times"></i> Usuń</button>
+                        </span>
+                        <span ng-click="editPollster(pollster.id)" style="float: right" class="btn btn-link btn-sm">
+                            <button class="btn btn-info btn-addon"><i class="fa fa-pencil"></i> Edytuj</button>
+                        </span>
+                    </td>
+                </tr>
+                <tr ng-if="pollsters.length === 0">
+                    <td colspan="4" class="text-center">
+                        <h3>Brak Wyników !</h3>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

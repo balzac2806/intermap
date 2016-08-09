@@ -1,4 +1,4 @@
-var interMap = angular.module('interMap', ['ngRoute', 'ngCookies', 'ui.router', 'angular-growl']);
+var interMap = angular.module('interMap', ['ngRoute', 'ngCookies', 'ui.router', 'angular-growl', 'ui.bootstrap', 'angular-input-stars']);
 
 interMap.config(['growlProvider', function (growlProvider) {
         growlProvider.globalTimeToLive(5000);
@@ -10,24 +10,35 @@ interMap.config(['$stateProvider', '$urlRouterProvider',
         $urlRouterProvider.otherwise('/');
 
         $stateProvider
+                // Logowanie
                 .state('login', {
                     url: "/login",
                 })
+                // Rejestracja
                 .state('register', {
                     url: "/register",
                     templateUrl: "front/views/register/register.tpl.html",
                     controller: 'registerController',
                 })
+                // Dashboard
                 .state('dashboard', {
                     url: "/dashboard",
                     templateUrl: "front/views/dashboard/dashboard.tpl.html",
                     controller: 'dashboardController',
                 })
-                .state('test', {
-                    url: "/test",
-                    templateUrl: "front/views/index/index.tpl.html",
-                    controller: 'testController',
+                // Lista - Uczelnie
+                .state('placesList', {
+                    url: "/places/list",
+                    templateUrl: "front/views/places-list/places.tpl.html",
+                    controller: 'placesListController',
                 })
+                // Lista - Uczelnie
+                .state('placeView', {
+                    url: "/places/:placeId",
+                    templateUrl: "front/views/places-list/place.tpl.html",
+                    controller: 'placePageController',
+                })
+                // Abstract - Administracja
                 .state('admin', {
                     url: "/admin",
                     templateUrl: "front/views/admin/admin.tpl.html",
@@ -96,6 +107,38 @@ interMap.config(['$stateProvider', '$urlRouterProvider',
                     url: "/opinion/:opinionId",
                     templateUrl: "front/views/opinions/opinion.tpl.html",
                     controller: 'opinionController',
+                })
+                // Ankiety
+                .state('pollAnswers', {
+                    url: "/poll-answers",
+                    templateUrl: "front/views/poll-answers/pollAnswers.tpl.html",
+                    controller: 'pollAnswersController',
+                })
+                .state('newPoll', {
+                    url: "/poll-answer",
+                    templateUrl: "front/views/poll-answers/poll.tpl.html",
+                    controller: 'pollAnswerController',
+                })
+                .state('editPoll', {
+                    url: "/poll-answer/:pollId",
+                    templateUrl: "front/views/poll-answers/poll.tpl.html",
+                    controller: 'pollAnswerController',
+                })
+                // Ankieterzy
+                .state('pollsters', {
+                    url: "/pollsters",
+                    templateUrl: "front/views/pollsters/pollsters.tpl.html",
+                    controller: 'pollstersController',
+                })
+                .state('newPollster', {
+                    url: "/pollster",
+                    templateUrl: "front/views/pollsters/pollster.tpl.html",
+                    controller: 'pollsterController',
+                })
+                .state('editPollster', {
+                    url: "/pollster/:pollsterId",
+                    templateUrl: "front/views/pollsters/pollster.tpl.html",
+                    controller: 'pollsterController',
                 })
     }]);
 

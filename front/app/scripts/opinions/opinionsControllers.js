@@ -9,6 +9,11 @@ interMap.controller('opinionsController', ['$scope', '$rootScope', '$http', '$st
         $scope.removeOpinion = function (id) {
             return $http.delete(url + id);
         }
+        
+        $scope.status = {
+            5: 'Niekatywna',
+            10: 'Aktywna'
+        };
 
         $scope.getOpinions()
                 .then(function (response) {
@@ -75,7 +80,7 @@ interMap.controller('opinionController', ['$scope', '$stateParams', '$rootScope'
             $state.go('opinions');
         };
 
-        $scope.saveQuestion = function (opinion, editMode) {
+        $scope.saveOpinion = function (opinion, editMode) {
             if (editMode) {
                 return $http.put(url + $scope.opinion.id, opinion)
                         .then(function (response) {

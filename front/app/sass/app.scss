@@ -31,5 +31,61 @@ body {
 }
 
 .sidebar-list-child {
-    background-color: slategray;
+    background-color: rgb(43, 53, 71);
+}
+
+.list:nth-child(2n) {
+    background-color: #dcdcdc;
+}
+
+.rate-value {
+    background-color: transparent;
+    border: 0 none;
+    color: #34495e;
+    left: 0;
+    padding: 0;
+    position: absolute;
+    text-align: center;
+    top: 40px;
+    width: 98px;
+    z-index: 1;
+}
+
+.myChart {
+    z-index: 0;
+}
+
+.list-rate-graph {
+    display: block;
+    height: 100px;
+    left: 30px;
+    margin-top: -50px;
+    top: 50%;
+    width: 100px;
+}
+
+#myChart {
+    height: 100%;
+    width: 100%;
+}
+
+canvas.star {
+    float: left;
+    z-index: 1;
+}
+.stars {
+    visibility: hidden;
+    display: inline-block;
+    position: relative;
+    z-index: 0;
+}
+.stars-selected {
+    position: absolute;
+    max-width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.actives {
+    color: #fff !important;
 }

@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="panel-body">
+        <div class="row">
+            <button ng-click="addPollAnswers()" class="btn btn-primary pull-right">Dodaj Ankietę</button>
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+            <div>Id Ankiety</div>
+            </th>
+            <th>
+            <div>Uczelnia</div>
+            </th>
+            <th>
+            <div>Ankieter</div>
+            </th>
+            <th>
+            <div>Status</div>
+            </th>
+            <th>
+            <div>Data Utworzenia</div>
+            </th>
+            <th>
+            <div>Data Modyfikacji</div>
+            </th>
+            <th>
+            <div>Akcje</div>
+            </th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="answer in answers">
+                    <td>
+                        {{answer.poll_id}}
+                    </td>
+                    <td>
+                        {{answer.object_id}}
+                    </td>
+                    <td>
+                        {{answer.pollster_id}}
+                    </td>
+                    <td>
+                        <label ng-if="answer.status == 10" class="label label-success">{{status[answer.status]}}</label>
+                        <label ng-if="answer.status == 5" class="label label-warning">{{status[answer.status]}}</label>
+                    </td>
+                    <td>
+                        {{answer.created_at|| '-'}}
+                    </td>
+                    <td>
+                        {{answer.updated_at|| '-'}}
+                    </td>
+                    <td>
+                        <span ng-click="remove($event, answer.poll_id)" style="float: right" class="btn btn-link btn-sm">
+                            <button class="btn btn-danger btn-addon"><i class="fa fa-times"></i> Usuń</button>
+                        </span>
+                        <span ng-click="editPollAnswers(answer.poll_id)" style="float: right" class="btn btn-link btn-sm">
+                            <button class="btn btn-info btn-addon"><i class="fa fa-pencil"></i> Edytuj</button>
+                        </span>
+                    </td>
+                </tr>
+                <tr ng-if="answers.length === 0">
+                    <td colspan="7" class="text-center">
+                        <h3>Brak Wyników !</h3>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
