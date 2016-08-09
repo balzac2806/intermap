@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable,
     \Illuminate\Support\Facades\DB;
 
-class Opinion extends Authenticatable {
+class Pollster extends Authenticatable {
 
     /**
      * The attributes that are mass assignable.
@@ -13,10 +13,7 @@ class Opinion extends Authenticatable {
      * @var array
      */
     protected $fillable = [
-        'opinion',
-        'object_id',
-        'pollster_id',
-        'status',
+        'email',
     ];
 
     /**
@@ -28,13 +25,9 @@ class Opinion extends Authenticatable {
     ];
 
     public static function getAll() {
-        $opinions = DB::table('opinions')
-                ->select('opinions.id', 'users.email as pollster_id', 'places.name as object_id', 'status', 'opinions.created_at', 'opinions.updated_at', 'opinions.opinion')
-                ->leftJoin('users', 'users.id', '=', 'opinions.pollster_id')
-                ->leftJoin('places', 'places.id', '=', 'opinions.object_id')
-                ->orderBy('opinions.id', 'desc')
+        $pollsters = DB::table('pollsters')
                 ->get();
-        return $opinions;
+        return $pollsters;
     }
 
     /**
@@ -55,12 +48,12 @@ class Opinion extends Authenticatable {
      * @return User
      */
     public static function createOrUpdate($input, $id = null) {
-        $opinion = !empty($id) ? Opinion::findById($id) : new Opinion;
-        $opinion->fill($input);
+        $pollster = !empty($id) ? Pollster::findById($id) : new Pollster;
+        $pollster->fill($input);
 
-        $opinion->save();
+        $pollster->save();
 
-        return $opinion;
+        return $pollster;
     }
 
 }

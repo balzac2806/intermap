@@ -35,6 +35,29 @@ class Place extends Authenticatable {
                 ->get();
         return $places;
     }
+    
+    public static function getOverallRate() {
+        $rates = DB::table('poll_answers')
+                ->select(DB::raw('count(distinct(poll_id)) as count, sum(answer::int) as answer_overall, count(answer) as answer_count, object_id'))
+                ->groupBy('object_id')
+                ->where('answer', '>', '0')
+                ->where('answer_id', '>', '3')
+                ->get();
+        
+        return $rates;
+    }
+    
+    public static function getOverallRateById($placeId) {
+        $rates = DB::table('poll_answers')
+                ->select(DB::raw('count(distinct(poll_id)) as count, sum(answer::int) as answer_overall, count(answer) as answer_count, object_id'))
+                ->groupBy('object_id')
+                ->where('answer', '>', '0')
+                ->where('object_id', '=', $placeId)
+                ->where('answer_id', '>', '3')
+                ->get();
+        
+        return $rates;
+    }
 
     /**
      * Zwraca użytkownika po kluczu id.
