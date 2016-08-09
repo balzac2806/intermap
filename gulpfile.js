@@ -43,7 +43,10 @@ gulp.task('default', function () {
             'body/bodyControllers.js',
             'register/registerControllers.js',
             'admin/adminControllers.js',
-            'users/usersControllers.js'
+            'users/usersControllers.js',
+            'places/placesControllers.js',
+            'poll/pollControllers.js',
+            'opinions/opinionsControllers.js'
         ], 'public/front/scripts/controllers.js', 'front/app/scripts');
 
         mix.scripts([

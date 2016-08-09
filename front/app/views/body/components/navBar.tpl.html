@@ -14,11 +14,23 @@
             <a ui-sref="test">Test <span class="menu-icon fa fa-table"></span></a>
         </li>
         <li ng-show="permissions.user.role == 'admin'" ng-click="adminMenu()" class="sidebar-list">
-            <a ui-sref="admin">Administracja <span class="menu-icon fa fa-university"></span></a>
-        <li ng-show="admin" class="sidebar-list sidebar-list-child">
+            <a>Administracja <span class="menu-icon fa fa-university"></span></a>
+        <li ng-show="admin && permissions.user.role == 'admin'" class="sidebar-list sidebar-list-child">
             <a ui-sref="users">Użytkownicy <span class="menu-icon fa fa-user"></span></a>
-        <li ng-show="admin" class="sidebar-list sidebar-list-child">
-            <a ui-sref="dashboard">Dashboard <span class="menu-icon fa fa-tachometer"></span></a>
+        <li ng-show="admin && permissions.user.role == 'admin'" class="sidebar-list sidebar-list-child">
+            <a ui-sref="places">Uczelnie <span class="menu-icon fa fa-archive"></span></a>
+        </li>
+        <li ng-show="admin && permissions.user.role == 'admin'" class="sidebar-list sidebar-list-child">
+            <a ui-sref="poll">Ankieta <span class="menu-icon fa fa-book"></span></a>
+        </li>
+        <li ng-show="admin && permissions.user.role == 'admin'" class="sidebar-list sidebar-list-child">
+            <a ui-sref="opinions">Opinie <span class="menu-icon fa fa-comments"></span></a>
+        </li>
+        <li ng-show="admin && permissions.user.role == 'admin'" class="sidebar-list sidebar-list-child">
+            <a ui-sref="pollAnswers">Ankiety <span class="menu-icon fa fa-bookmark"></span></a>
+        </li>
+        <li ng-show="admin && permissions.user.role == 'admin'" class="sidebar-list sidebar-list-child">
+            <a ui-sref="pollseters">Ankieterzy <span class="menu-icon fa fa-users"></span></a>
         </li>
     </ul>
     <div class="sidebar-footer">

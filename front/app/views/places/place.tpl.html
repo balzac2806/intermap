@@ -1,0 +1,100 @@
+<div class="wrapper-md">
+    <div class="panel panel-default">
+        <div class="panel-heading" ng-if="!editMode">Nowa Uczelnia</div>
+        <div class="panel-heading" ng-if="editMode">Edycja Uczelni</div>
+        <div class="panel-body">
+            <form name="placeForm" class="form-horizontal">
+                <fieldset>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Nazwa</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="name" class="form-control" ng-model="place.name" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <span ng-show="error.name" class="alert alert-danger">{{error.name[0]}}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Opis</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="description" class="form-control" ng-model="place.description" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <span ng-show="error.description" class="alert alert-danger">{{error.description[0]}}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Telefon</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="phone" class="form-control" ng-model="place.phone" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <span ng-show="error.phone" class="alert alert-danger">{{error.phone[0]}}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Adres</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="address" class="form-control" ng-model="place.address" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <span ng-show="error.address" class="alert alert-danger">{{error.address[0]}}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Kod - Pocztowy</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="post_code" class="form-control" ng-model="place.post_code" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <span ng-show="error.post_code" class="alert alert-danger">{{error.post_code[0]}}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Miasto</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="city" class="form-control" ng-model="place.city" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <span ng-show="error.city" class="alert alert-danger">{{error.city[0]}}</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Strona internetowa</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="site" class="form-control" ng-model="place.site" required/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <span ng-show="error.site" class="alert alert-danger">{{error.site[0]}}</span>
+                        </div>
+                    </div>
+                    <div class="line line-dashed b-b line-lg"></div>
+                </fieldset>
+            </form>
+            <div class="form-group">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <button ng-click="cancel()" class="btn btn-default">Anuluj</button>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 text-right">
+                        <button ng-click="savePlace(place, editMode)" class="btn btn-primary">Zapisz</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

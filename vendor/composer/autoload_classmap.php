@@ -7,7 +7,10 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddColumnRoleToUsersTable' => $baseDir . '/database/migrations/2016_04_23_215117_add_column_role_to_users_table.php',
+    'CreateOpinionsTable' => $baseDir . '/database/migrations/2016_05_15_170431_create_opinions_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+    'CreatePlacesTable' => $baseDir . '/database/migrations/2016_05_15_152547_create_places_table.php',
+    'CreatePollTable' => $baseDir . '/database/migrations/2016_05_15_164308_create_poll_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',

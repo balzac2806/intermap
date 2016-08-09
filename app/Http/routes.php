@@ -20,11 +20,44 @@ Route::post('auth', 'UserController@checkAuth');
 
 Route::post('register', 'AuthController@create');
 
+// Użytkownicy 
 Route::post('api/user', 'UserController@store');
 Route::put('api/user/{id}', 'UserController@store');
 Route::get('api/user', 'UserController@create');
 Route::get('api/user/{id}', 'UserController@show');
 Route::delete('api/user/{id}', 'UserController@destroy');
 
+// Uczelnie 
+Route::post('api/place', 'PlaceController@store');
+Route::put('api/place/{id}', 'PlaceController@store');
+Route::get('api/place', 'PlaceController@create');
+Route::get('api/place/{id}', 'PlaceController@show');
+Route::delete('api/place/{id}', 'PlaceController@destroy');
 
-Route::resource('user', 'UserController');
+// Pytania 
+Route::post('api/poll', 'PollController@store');
+Route::put('api/poll/{id}', 'PollController@store');
+Route::get('api/poll', 'PollController@create');
+Route::get('api/poll/{id}', 'PollController@show');
+Route::delete('api/poll/{id}', 'PollController@destroy');
+
+// Opinie 
+Route::post('api/opinion', 'OpinionController@store');
+Route::put('api/opinion/{id}', 'OpinionController@store');
+Route::get('api/opinion', 'OpinionController@create');
+Route::get('api/opinion/{id}', 'OpinionController@show');
+Route::delete('api/opinion/{id}', 'OpinionController@destroy');
+
+// Ankiety - Odpowiedzi 
+Route::post('api/answers', 'PollAnswersController@store');
+Route::put('api/answers/{id}', 'PollAnswersController@store');
+Route::get('api/answers', 'PollAnswersController@create');
+Route::get('api/answers/{id}', 'PollAnswersController@show');
+Route::delete('api/answers/{id}', 'PollAnswersController@destroy');
+
+// Ankieterzy
+Route::post('api/pollsters', 'PollstersController@store');
+Route::put('api/pollsters/{id}', 'PollstersController@store');
+Route::get('api/pollsters', 'PollstersController@create');
+Route::get('api/pollsters/{id}', 'PollstersController@show');
+Route::delete('api/pollsters/{id}', 'PollstersController@destroy');

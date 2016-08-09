@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="panel-body">
+        <div class="row">
+            <!--<button ng-click="addOpinion()" class="btn btn-primary pull-right">Dodaj Opinię</button>-->
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+            <div>Status</div>
+            </th>
+            <th>
+            <div>Opinia</div>
+            </th>
+            <th>
+            <div>Uczelnia</div>
+            </th>
+            <th>
+            <div>Ankieter</div>
+            </th>
+            <th>
+            <div>Data Modyfikacji</div>
+            </th>
+            <th>
+            <div>Akcje</div>
+            </th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="opinion in opinions">
+                    <td>
+                        {{opinion.status}}
+                    </td>
+                    <td>
+                        {{opinion.opinion}}
+                    </td>
+                    <td>
+                        {{opinion.object_id}}
+                    </td>
+                    <td>
+                        {{opinion.pollster_id}}
+                    </td>
+                    <td>
+                        {{opinion.updated_at|| '-'}}
+                    </td>
+                    <td>
+                        <span ng-click="remove($event, opinion.id)" style="float: right" class="btn btn-link btn-sm">
+                            <button class="btn btn-danger btn-addon"><i class="fa fa-times"></i> Usuń</button>
+                        </span>
+                        <span ng-click="editOpinion(opinion.id)" style="float: right" class="btn btn-link btn-sm">
+                            <button class="btn btn-info btn-addon"><i class="fa fa-pencil"></i> Edytuj</button>
+                        </span>
+                    </td>
+                </tr>
+                <tr ng-if="opinions.length === 0">
+                    <td colspan="6" class="text-center">
+                        <h3>Brak Wyników !</h3>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

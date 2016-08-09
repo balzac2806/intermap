@@ -6,19 +6,33 @@
                 <span class="menu-icon glyphicon glyphicon-transfer"></span>
             </a>
         </li>
-        <li class="sidebar-title"><span>Menu</span></li>
         <li class="sidebar-list">
-            <a ui-sref="dashboard">Dashboard <span class="menu-icon fa fa-tachometer"></span></a>
+            <a><span><strong>Menu</strong></span></a>
         </li>
         <li class="sidebar-list">
-            <a ui-sref="test">Test <span class="menu-icon fa fa-table"></span></a>
+            <a ui-sref="dashboard" ng-class="{ 'actives': isActive($state, 'dashboard')}">Dashboard <span class="menu-icon fa fa-tachometer"></span></a>
+        </li>
+        <li class="sidebar-list">
+            <a ui-sref="placesList" ng-class="{ 'actives': isActive($state, 'placesList')}">Uczelnie - Lista <span class="menu-icon fa fa-university"></span></a>
         </li>
         <li ng-show="permissions.user.role == 'admin'" ng-click="adminMenu()" class="sidebar-list">
-            <a ui-sref="admin">Administracja <span class="menu-icon fa fa-university"></span></a>
-        <li ng-show="admin" class="sidebar-list sidebar-list-child">
-            <a ui-sref="users">Użytkownicy <span class="menu-icon fa fa-user"></span></a>
-        <li ng-show="admin" class="sidebar-list sidebar-list-child">
-            <a ui-sref="dashboard">Dashboard <span class="menu-icon fa fa-tachometer"></span></a>
+            <a><strong>Administracja </strong><span class="menu-icon fa fa-gears"></span></a>
+        <li ng-show="admin && permissions.user.role == 'admin'" class="sidebar-list sidebar-list-child">
+            <a ui-sref="users" ng-class="{ 'actives': isActive($state, 'users')}">Użytkownicy <span class="menu-icon fa fa-user"></span></a>
+        <li ng-show="admin && permissions.user.role == 'admin'" class="sidebar-list sidebar-list-child">
+            <a ui-sref="places" ng-class="{ 'actives': isActive($state, 'places')}">Uczelnie <span class="menu-icon fa fa-archive"></span></a>
+        </li>
+        <li ng-show="admin && permissions.user.role == 'admin'" class="sidebar-list sidebar-list-child">
+            <a ui-sref="poll" ng-class="{ 'actives': isActive($state, 'poll')}">Ankieta <span class="menu-icon fa fa-book"></span></a>
+        </li>
+        <li ng-show="admin && permissions.user.role == 'admin'" class="sidebar-list sidebar-list-child">
+            <a ui-sref="opinions" ng-class="{ 'actives': isActive($state, 'opinions')}">Opinie <span class="menu-icon fa fa-comments"></span></a>
+        </li>
+        <li ng-show="admin && permissions.user.role == 'admin'" class="sidebar-list sidebar-list-child">
+            <a ui-sref="pollAnswers" ng-class="{ 'actives': isActive($state, 'pollAnswers')}">Ankiety <span class="menu-icon fa fa-bookmark"></span></a>
+        </li>
+        <li ng-show="admin && permissions.user.role == 'admin'" class="sidebar-list sidebar-list-child">
+            <a ui-sref="pollsters" ng-class="{ 'actives': isActive($state, 'pollsters')}">Ankieterzy <span class="menu-icon fa fa-users"></span></a>
         </li>
     </ul>
     <div class="sidebar-footer">
@@ -27,7 +41,7 @@
                 Github InterMap
             </a>
         </div>
-        <div class="col-xs-4">
+<!--        <div class="col-xs-4">
             <a target="_blank" href="#">
                 About
             </a>
@@ -36,6 +50,6 @@
             <a href="#">
                 Support
             </a>
-        </div>
+        </div>-->
     </div>
 </div>

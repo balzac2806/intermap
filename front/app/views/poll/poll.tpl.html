@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="panel-body">
+        <div class="row">
+            <button ng-click="addQuestion()" class="btn btn-primary pull-right">Dodaj Pytanie</button>
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+            <div>Nazwa</div>
+            </th>
+            <th>
+            <div>Typ</div>
+            </th>
+            <th>
+            <div>Skala</div>
+            </th>
+            <th>
+            <div>Treść</div>
+            </th>
+            <th>
+            <div>Data Modyfikacji</div>
+            </th>
+            <th>
+            <div>Akcje</div>
+            </th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="question in questions">
+                    <td>
+                        {{question.name}}
+                    </td>
+                    <td>
+                        {{question.type}}
+                    </td>
+                    <td>
+                        {{question.scale}}
+                    </td>
+                    <td>
+                        {{question.description}}
+                    </td>
+                    <td>
+                        {{question.updated_at|| '-'}}
+                    </td>
+                    <td>
+                        <span ng-click="remove($event, question.id)" style="float: right" class="btn btn-link btn-sm">
+                            <button class="btn btn-danger btn-addon"><i class="fa fa-times"></i> Usuń</button>
+                        </span>
+                        <span ng-click="editQuestion(question.id)" style="float: right" class="btn btn-link btn-sm">
+                            <button class="btn btn-info btn-addon"><i class="fa fa-pencil"></i> Edytuj</button>
+                        </span>
+                    </td>
+                </tr>
+                <tr ng-if="questions.length === 0">
+                    <td colspan="6" class="text-center">
+                        <h3>Brak Wyników !</h3>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
