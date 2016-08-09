@@ -49,15 +49,15 @@ Route::get('api/opinion/{id}', 'OpinionController@show');
 Route::delete('api/opinion/{id}', 'OpinionController@destroy');
 
 // Ankiety - Odpowiedzi 
-Route::post('api/answers', 'PollAnswersController@store');
-Route::put('api/answers/{id}', 'PollAnswersController@store');
-Route::get('api/answers', 'PollAnswersController@create');
-Route::get('api/answers/{id}', 'PollAnswersController@show');
-Route::delete('api/answers/{id}', 'PollAnswersController@destroy');
+Route::post('api/answers', 'PollAnswerController@store');
+Route::put('api/answers/{pollId}', 'PollAnswerController@store');
+Route::get('api/answers', 'PollAnswerController@create');
+Route::get('api/answers/{id}', 'PollAnswerController@show');
+Route::delete('api/answers/{id}', 'PollAnswerController@destroy');
 
 // Ankieterzy
-Route::post('api/pollsters', 'PollstersController@store');
-Route::put('api/pollsters/{id}', 'PollstersController@store');
-Route::get('api/pollsters', 'PollstersController@create');
-Route::get('api/pollsters/{id}', 'PollstersController@show');
-Route::delete('api/pollsters/{id}', 'PollstersController@destroy');
+Route::post('api/pollsters', 'PollsterController@store');
+Route::put('api/pollsters/{id}', 'PollsterController@store');
+Route::get('api/pollsters', 'PollsterController@create');
+Route::get('api/pollsters/{id}', 'PollsterController@show');
+Route::delete('api/pollsters/{id}', 'PollsterController@destroy');

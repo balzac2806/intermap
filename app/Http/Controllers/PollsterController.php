@@ -7,11 +7,11 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View,
-    App\Opinion,
+    \App\Pollster,
     Illuminate\Support\Facades\Input,
     Illuminate\Support\Facades\Validator;
 
-class OpinionController extends Controller {
+class PollsterController extends Controller {
 
     /**
      * Get a validator for an incoming user create request.
@@ -21,10 +21,7 @@ class OpinionController extends Controller {
      */
     protected function validator(array $data) {
         return Validator::make($data, [
-                    'opinion' => 'required|max:255',
-                    'object_id' => 'required',
-                    'pollster_id' => 'required',
-                    'status' => 'required',
+                    'email' => 'required'
         ]);
     }
 
@@ -36,29 +33,22 @@ class OpinionController extends Controller {
      */
     protected function validatorUpdate(array $data) {
         return Validator::make($data, [
-                    'opinion' => 'required|max:255',
-                    'object_id' => 'required',
-                    'pollster_id' => 'required',
-                    'status' => 'required',
+                    'email' => 'required'
         ]);
     }
 
     public function create() {
         $success = true;
-        $data = Opinion::getAll();
+        $data = Pollster::getAll();
 
         return Response::json(compact('success', 'data'));
     }
 
     public function store($id = null) {
-        $user = Auth::user()->toArray();
-        $data = Input::all();
         if ($id) {
-            $validator = $this->validatorUpdate($data);
+            $validator = $this->validatorUpdate(Input::all());
         } else {
-            $data['pollster_id'] = $user['id'];
-            $data['status'] = 10;
-            $validator = $this->validator($data);
+            $validator = $this->validator(Input::all());
         }
 
         $success = false;
@@ -68,11 +58,11 @@ class OpinionController extends Controller {
             return Response::json(compact('success', 'error'));
         }
 
-        $opinion = Opinion::createOrUpdate($data, $id);
+        $pollster = Pollster::createOrUpdate(Input::all(), $id);
 
-        $success = !empty($opinion);
+        $success = !empty($pollster);
 
-        return Response::json(compact('success', 'opinion'));
+        return Response::json(compact('success', 'pollster'));
     }
 
     /**
@@ -82,33 +72,33 @@ class OpinionController extends Controller {
      * @return \Illuminate\Http\JsonResponse
      */
     public function show($id) {
-        $opinion = Opinion::findById($id);
+        $pollster = Pollster::findById($id);
 
-        if (empty($opinion)) {
+        if (empty($pollster)) {
             $error = 'Upss, wystąpił błąd! Spróbuj później.';
             return Response::json(compact('success', 'error'));
         }
 
         $success = true;
 
-        return Response::json(compact('success', 'opinion'));
+        return Response::json(compact('success', 'pollster'));
     }
 
     public function destroy($id) {
-        $opinion = Opinion::findById($id);
+        $pollster = Pollster::findById($id);
 
         $success = false;
 
-        if (empty($opinion)) {
+        if (empty($pollster)) {
             $error = 'Upss, wystąpił błąd! Spróbuj później.';
             return Response::json(compact('success', 'error'));
         }
 
-        $opinion->delete();
+        $pollster->delete();
 
         $success = true;
 
-        return Response::json(compact('success'));
+        return Response::json(compact('success', 'pollster'));
     }
 
 }

@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View,
     \App\Poll,
     Illuminate\Support\Facades\Input,
-    Illuminate\Support\Facades\Validator;
+    Illuminate\Support\Facades\Validator,
+    App\PollAnswer;
 
 class PollController extends Controller {
 
@@ -46,8 +47,11 @@ class PollController extends Controller {
     public function create() {
         $success = true;
         $data = Poll::getAll();
+        $statuses = PollAnswer::$statuses;
+        $sex = Poll::$sex_values;
+        $voivodeships = Poll::$voivodeships;
 
-        return Response::json(compact('success', 'data'));
+        return Response::json(compact('success', 'data', 'statuses', 'sex', 'voivodeships'));
     }
 
     public function store($id = null) {
