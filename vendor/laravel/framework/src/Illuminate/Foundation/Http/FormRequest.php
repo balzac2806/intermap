@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\Container\Container;
-use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Exception\HttpResponseException;
 use Illuminate\Validation\ValidatesWhenResolvedTrait;
 use Illuminate\Contracts\Validation\ValidatesWhenResolved;

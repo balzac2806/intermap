@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest,
-    App\Http\Services\ValidatorExtension;
+    App\Services\ValidatorExtension;
 
 class PlaceChangeRequest extends FormRequest {
 
@@ -22,7 +22,6 @@ class PlaceChangeRequest extends FormRequest {
     ];
 
     protected function changeInput(array $input, $id = null) {
-
         return $input;
     }
 
