@@ -3,7 +3,7 @@ interMap.controller('bodyController', ['$scope', '$rootScope', '$http', '$state'
         $rootScope.$state = $state;
         $scope.admin = false;
 
-        var loginStatus = $cookies.get('logged');
+        var loginStatus = $cookies.getObject('logged');
 
         if (angular.isDefined($rootScope.loggedUser) || loginStatus) {
             if ($rootScope.loggedUser) {
@@ -36,7 +36,7 @@ interMap.controller('bodyController', ['$scope', '$rootScope', '$http', '$state'
                         $rootScope.permissions.user = response.data;
                         $rootScope.loggedUser = true;
                         $scope.loggedUser = true;
-                        $cookies.put('logged', response.data);
+                        $cookies.putObject('logged', response.data);
                         $state.go('dashboard');
                         growl.addSuccessMessage('Witaj ' + response.data.name + '!');
                     } else {

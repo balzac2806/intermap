@@ -150,7 +150,6 @@ interMap.controller('placeModalController', ['$scope', '$stateParams', '$rootSco
                         if (data.success) {
                             $uibModalInstance.close(data.rate);
                         } else {
-                            console.log('data', data);
                             if (typeof data.error === 'object') {
                                 $scope.formErrors = data.error;
                             } else {
