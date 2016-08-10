@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\View,
+use App\Http\Requests,
+    Illuminate\Support\Facades\Response,
     \App\Place,
     Illuminate\Support\Facades\Input,
     Illuminate\Support\Facades\Validator,
     App\Opinion,
-    App\User;
+    App\User,
+    App\Http\Requests\PlaceChangeRequest;
 
 class PlaceController extends Controller {
 
@@ -28,6 +26,7 @@ class PlaceController extends Controller {
                     'phone' => 'required',
                     'address' => 'required',
                     'post_code' => 'required',
+                    //                    'post_code' => array('required', 'Regex:/^([0-9]{2})(-[0-9]{3})?$/i'),
                     'city' => 'required',
                     'site' => 'required',
         ]);
@@ -69,18 +68,10 @@ class PlaceController extends Controller {
     }
 
     public function store($id = null) {
-        if ($id) {
-            $validator = $this->validatorUpdate(Input::all());
-        } else {
-            $validator = $this->validator(Input::all());
-        }
+        $valid = new PlaceChangeRequest(Input::all(), $id);
 
-        $success = false;
-
-        if ($validator->fails()) {
-            $error = $validator->errors();
-            return Response::json(compact('success', 'error'));
-        }
+        if ($valid->fails())
+            return $valid->failResponse();
 
         $place = Place::createOrUpdate(Input::all(), $id);
 
@@ -102,11 +93,11 @@ class PlaceController extends Controller {
             $error = 'Upss, wystąpił błąd! Spróbuj później.';
             return Response::json(compact('success', 'error'));
         }
-        
+
         $rate = Place::getOverallRateById($id);
         $place['count'] = $rate[0]->count;
         $place['rate'] = round(($rate[0]->answer_overall / $rate[0]->answer_count), 2);
-        
+
         $opinions = Opinion::where('object_id', '=', $id)->get()->toArray();
 
         $users = User::select('id', 'email')->get()->toArray();
