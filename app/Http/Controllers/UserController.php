@@ -38,6 +38,7 @@ class UserController extends Controller {
     protected function validatorUpdate(array $data) {
         return Validator::make($data, [
                     'name' => 'required',
+                    'password' => 'same:password_confirmation',
                     'password_confirmation' => 'same:password',
                     'role' => 'required'
         ]);
