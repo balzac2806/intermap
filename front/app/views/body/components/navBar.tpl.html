@@ -15,6 +15,10 @@
         <li class="sidebar-list">
             <a ui-sref="placesList" ng-class="{ 'actives': isActive($state, 'placesList')}">Uczelnie - Lista <span class="menu-icon fa fa-university"></span></a>
         </li>
+        <li class="sidebar-list">
+            <a ui-sref="placesMap" ng-class="{ 'actives': isActive($state, 'placesMap')}">Mapa <span class="menu-icon fa fa-map-marker "></span></a>
+        </li>
+        <!--- ADMIN MENU -->
         <li ng-show="permissions.user.role == 'admin'" ng-click="adminMenu()" class="sidebar-list">
             <a><strong>Administracja </strong><span class="menu-icon fa fa-gears"></span></a>
         <li ng-show="admin && permissions.user.role == 'admin'" class="sidebar-list sidebar-list-child">

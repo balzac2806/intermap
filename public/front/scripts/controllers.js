@@ -1,8 +1,6 @@
 interMap.controller('dashboardController', ['$scope', function ($scope) {
-        console.log('dashboardController');
     }]);
 interMap.controller('testController', ['$scope', function ($scope) {
-        console.log('testController');
     }]);
 
 interMap.controller('bodyController', ['$scope', '$rootScope', '$http', '$state', '$location', 'growl', '$cookies',
@@ -19,7 +17,6 @@ interMap.controller('bodyController', ['$scope', '$rootScope', '$http', '$state'
                 $rootScope.permissions = {};
                 $rootScope.permissions.user = loginStatus;
                 $scope.loggedUser = true;
-                console.log('loginStatus',loginStatus);
             }
         } else {
             $scope.loggedUser = false;
@@ -1153,6 +1150,10 @@ interMap.controller('pollsterController', ['$scope', '$stateParams', '$rootScope
             }
         };
 
+    }]);
+
+interMap.controller('mapController', ['$scope', function ($scope) {
+        console.log('mapController');
     }]);
 
 //# sourceMappingURL=controllers.js.map

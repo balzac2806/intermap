@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-8">
+            <div class="form-group">
+                <div id="map"></div>
+            </div>
+        </div>
+        <div id="table-params" class="col-md-4">
+            <table ng-table="tableParams" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="sortable" ng-class="{
+                          'sort-asc'
+                                :tableParams.isSortBy('name', 'asc'),
+                          'sort-desc'
+                                        :tableParams.isSortBy('name', 'desc')
+                        }"
+                            ng-click="tableParams.sorting({'name': tableParams.isSortBy('name', 'asc') ? 'desc' : 'asc'})">
+                <div>Nazwa</div>
+                </th>
+                </tr>
+                </thead>
+                <tbody ng-hide="isLoading">
+                    <tr ng-repeat="point in $data" ng-click="selectPoint(point)">
+                        <td>{{point.name}}</td>
+                    </tr>
+                    <tr ng-if="$data.length === 0" col-span="1" empty-table></tr>
+                </tbody>
+                <tbody col-span="1" ng-show="isLoading" loading-table></tbody>
+            </table>
+        </div>
+    </div>
+</div>

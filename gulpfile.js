@@ -49,7 +49,8 @@ gulp.task('default', function () {
             'poll/pollControllers.js',
             'opinions/opinionsControllers.js',
             'poll-answers/pollAnswersControllers.js',
-            'pollster/pollstersControllers.js'
+            'pollster/pollstersControllers.js',
+            'map/mapControllers.js'
         ], 'public/front/scripts/controllers.js', 'front/app/scripts');
 
         mix.scripts([

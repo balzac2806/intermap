@@ -32,6 +32,12 @@ interMap.config(['$stateProvider', '$urlRouterProvider',
                     templateUrl: "front/views/places-list/places.tpl.html",
                     controller: 'placesListController',
                 })
+                // Mapa - Uczelnie
+                .state('placesMap', {
+                    url: "/places/map",
+                    templateUrl: "front/views/map/places.tpl.html",
+                    controller: 'mapController',
+                })
                 // Lista - Uczelnie
                 .state('placeView', {
                     url: "/places/:placeId",
