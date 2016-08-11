@@ -81,6 +81,12 @@ return [
     'url'                  => 'The :attribute format is invalid.',
 
     /*
+     * Custom Validators
+     */
+    'post_code' => 'Nieprawidłowy kod pocztowy !',
+    'check_url' => 'Nieprawidłowy adres url !',
+    
+    /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
     |--------------------------------------------------------------------------
@@ -96,6 +102,7 @@ return [
             'rule-name' => 'custom-message',
         ],
     ],
+    
 
     /*
     |--------------------------------------------------------------------------

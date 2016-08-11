@@ -18,7 +18,7 @@ class PlaceChangeRequest extends FormRequest {
         'address' => 'required',
         'post_code' => 'required|postCode',
         'city' => 'required',
-        'site' => 'required',
+        'site' => 'required|checkUrl',
     ];
 
     protected function changeInput(array $input, $id = null) {
@@ -31,6 +31,7 @@ class PlaceChangeRequest extends FormRequest {
     protected function validatorExtensions($id = null) {
         $input = $this->getInput();
         ValidatorExtension::postCode($input);
+        ValidatorExtension::checkUrl($input);
     }
 
 }

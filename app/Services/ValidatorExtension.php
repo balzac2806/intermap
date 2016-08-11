@@ -12,10 +12,19 @@ class ValidatorExtension {
      */
     public static function postCode(array $input) {
         Validator::extend('postCode', function ($attribute, $value, $parameters) use ($input) {
-
-            dd($input);
-            $check = Beacon::checkUniqueUuid(!empty($input['uuid']) ? $input['uuid'] : null, !empty($input['major']) ? $input['major'] : null, !empty($input['minor']) ? $input['minor'] : null, !empty($id) ? $id : null);
-            return empty($check);
+            $postcode = $input[$attribute];
+            return preg_match("/^([0-9]{2})(-[0-9]{3})?$/i",$postcode);
+        });
+    }
+    
+    /**
+     * Rozszerzenie walidatora - sprawdzanie url
+     * @param array $input
+     */
+    public static function checkUrl(array $input) {
+        Validator::extend('checkUrl', function ($attribute, $value, $parameters) use ($input) {
+            $url = $input[$attribute];
+            return preg_match("/^(http|https)?:\/\/.*/i",$url);
         });
     }
 

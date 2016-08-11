@@ -95,8 +95,13 @@ class PlaceController extends Controller {
         }
 
         $rate = Place::getOverallRateById($id);
-        $place['count'] = $rate[0]->count;
-        $place['rate'] = round(($rate[0]->answer_overall / $rate[0]->answer_count), 2);
+
+        $place['count'] = 0;
+        $place['rate'] = '?';
+        if (!empty($rate)) {
+            $place['count'] = $rate[0]->count;
+            $place['rate'] = round(($rate[0]->answer_overall / $rate[0]->answer_count), 2);
+        }
 
         $opinions = Opinion::where('object_id', '=', $id)->get()->toArray();
 
