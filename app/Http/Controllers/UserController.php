@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View,
     \App\User,
     Illuminate\Support\Facades\Input,
-    Illuminate\Support\Facades\Validator;
+    Illuminate\Support\Facades\Validator,
+    App\PollAnswer,
+    App\Opinion;
 
 class UserController extends Controller {
 
@@ -129,6 +131,9 @@ class UserController extends Controller {
         }
 
         $user->delete();
+        
+        PollAnswer::where('pollster_id', $id)->delete();
+        Opinion::where('pollster_id', $id)->delete();
 
         $success = true;
 

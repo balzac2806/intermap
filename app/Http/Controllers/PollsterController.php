@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\View,
     \App\Pollster,
     Illuminate\Support\Facades\Input,
-    Illuminate\Support\Facades\Validator;
+    Illuminate\Support\Facades\Validator,
+    App\PollAnswer;
 
 class PollsterController extends Controller {
 
@@ -96,6 +97,8 @@ class PollsterController extends Controller {
 
         $pollster->delete();
 
+        PollAnswer::where('pollster_id', $id)->delete();
+        
         $success = true;
 
         return Response::json(compact('success', 'pollster'));
