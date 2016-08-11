@@ -9,7 +9,8 @@ use App\Http\Requests,
     Illuminate\Support\Facades\Validator,
     App\Opinion,
     App\User,
-    App\Http\Requests\PlaceChangeRequest;
+    App\Http\Requests\PlaceChangeRequest,
+    App\PollAnswer;
 
 class PlaceController extends Controller {
 
@@ -61,6 +62,10 @@ class PlaceController extends Controller {
                     $data[$key]->count = $rates[$k]->count;
                     $data[$key]->rate = round(($rates[$k]->answer_overall / $rates[$k]->answer_count), 2);
                 }
+            }
+            if (empty($data[$key]->count) && empty($data[$key]->rate)) {
+                $data[$key]->count = 0;
+                $data[$key]->rate = '?';
             }
         }
 
@@ -124,6 +129,9 @@ class PlaceController extends Controller {
         }
 
         $place->delete();
+        
+        PollAnswer::where('object_id', $id)->delete();
+        Opinion::where('object_id', $id)->delete();
 
         $success = true;
 

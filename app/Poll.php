@@ -46,6 +46,25 @@ class Poll extends Authenticatable {
         ]
     ];
     
+    const STUDENT_CHOOSE = 0;
+    const STUDENT_STUDENT = 1;
+    const STUDENT_GRADUATE = 2;
+    
+    public static $student_values = [
+        self::STUDENT_CHOOSE => [
+            'id' => '',
+            'name' => '-- Wybierz -- ',
+        ],
+        self::STUDENT_STUDENT => [
+            'id' => self::STUDENT_STUDENT,
+            'name' => 'student',
+        ],
+        self::STUDENT_GRADUATE => [
+            'id' => self::STUDENT_GRADUATE,
+            'name' => 'absolwent',
+        ]
+    ];
+    
     const VOIVD_CHOOSE = 0;
     const VOIVD_DOLNOSLASKIE = 1;
     const VOIVD_KUJAWSKO = 2;

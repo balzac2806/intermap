@@ -51,8 +51,13 @@ class OpinionController extends Controller {
     }
 
     public function store($id = null) {
-        $user = Auth::user()->toArray();
         $data = Input::all();
+        
+        $auth= Auth::check();
+        if (!empty($auth)) {
+            $user['id'] = $data['user_id'];
+        }
+        
         if ($id) {
             $validator = $this->validatorUpdate($data);
         } else {

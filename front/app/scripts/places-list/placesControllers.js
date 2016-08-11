@@ -92,6 +92,7 @@ interMap.controller('placePageController', ['$scope', '$stateParams', '$rootScop
             if (angular.isDefined(opinion.opinion)) {
                 var opinionUrl = '/api/opinion/';
                 opinion.object_id = $scope.placeId;
+                opinion.user_id = $rootScope.permissions.user.id;
                 $http.post(opinionUrl, opinion).
                         success(function (response) {
                             if (response.success) {
@@ -135,6 +136,7 @@ interMap.controller('placeModalController', ['$scope', '$stateParams', '$rootSco
                         $scope.questions = response.data.data;
                         $scope.statuses = response.data.statuses;
                         $scope.sexs = response.data.sex;
+                        $scope.students = response.data.students;
                         $scope.voivodeships = response.data.voivodeships;
                     } else {
                         growl.addErrorMessage(response.data.error);
@@ -145,6 +147,8 @@ interMap.controller('placeModalController', ['$scope', '$stateParams', '$rootSco
 
         $scope.save = function () {
             $scope.isLoading = true;
+            $scope.rate.user_id = $rootScope.permissions.user.id;
+            $scope.rate.user_email = $rootScope.permissions.user.email;
             $http.post(pollAnswerUrl, $scope.rate).
                     success(function (data) {
                         if (data.success) {

@@ -53,7 +53,13 @@ class PollAnswerController extends Controller {
     }
 
     public function store($id = null) {
-        $user = Auth::user()->toArray();
+        $data = Input::all();
+        
+        $auth= Auth::check();
+        if (!empty($auth)) {
+            $user['id'] = $data['user_id'];
+            $user['email'] = $data['user_email'];
+        }
 
         $answers = [];
         $data = [];
@@ -75,9 +81,9 @@ class PollAnswerController extends Controller {
             $validator = $this->validatorUpdate($data);
             PollAnswer::where('poll_id', '=', $pollId)->delete();
         } else {
-            $pollId = PollAnswer::select('poll_id')->orderBy('poll_id', 'desc')->first()->toArray();
+            $pollId = PollAnswer::select('poll_id')->orderBy('poll_id', 'desc')->first();
             if (!empty($pollId)) {
-                $pollId = $pollId['poll_id'] + 10;
+                $pollId = $pollId->toArray()['poll_id'] + 10;
             } else {
                 $pollId = 10;
             }

@@ -12,6 +12,7 @@ interMap.controller('bodyController', ['$scope', '$rootScope', '$http', '$state'
                 $rootScope.permissions = {};
                 $rootScope.permissions.user = loginStatus;
                 $scope.loggedUser = true;
+                console.log('loginStatus',loginStatus);
             }
         } else {
             $scope.loggedUser = false;

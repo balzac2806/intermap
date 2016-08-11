@@ -22,6 +22,12 @@
                             <option data-ng-repeat="voivd in voivodeships" value="{{voivd.id}}" ng-selected="voivd.id == rate.answers[question.id]">{{voivd.name}}</option>
                         </select>
                     </div>
+                    <div ng-if="question.type == 'student'">
+                        <label class="control-label" for="{{question.id}}">{{question.description}}</label>
+                        <select class="form-control" ng-model="rate.answers[question.id]">
+                            <option data-ng-repeat="student in students" value="{{student.id}}" ng-selected="student.id == rate.answers[question.id]">{{student.name}}</option>
+                        </select>
+                    </div>
                     <div ng-if="question.type == 'score'">
                         <label class="control-label" for="{{question.id}}">Oceń w skali od 0 do 5. (0 - nie wiem, 1-5 - ocena)</label>
                         <label class="control-label" for="{{question.id}}">{{question.description}}</label><br/>

@@ -49,9 +49,10 @@ class PollController extends Controller {
         $data = Poll::getAll();
         $statuses = PollAnswer::$statuses;
         $sex = Poll::$sex_values;
+        $students = Poll::$student_values;
         $voivodeships = Poll::$voivodeships;
 
-        return Response::json(compact('success', 'data', 'statuses', 'sex', 'voivodeships'));
+        return Response::json(compact('success', 'data', 'statuses', 'sex', 'voivodeships', 'students'));
     }
 
     public function store($id = null) {
