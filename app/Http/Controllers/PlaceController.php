@@ -100,5 +100,19 @@ class PlaceController extends Controller {
 
         return Response::json(compact('success'));
     }
+    
+    public function geolocations() {
+        $success = true;
+        $data = Place::select('name', 'lat', 'lng')
+                ->whereNotNull('lat')
+                ->whereNotNull('lng')
+                ->orderBy('name')
+                ->get();
+        foreach($data as $key => $val) {
+            $data[$key]['radius'] = 40;
+        }
+
+        return Response::json(compact('success', 'data'));
+    }
 
 }

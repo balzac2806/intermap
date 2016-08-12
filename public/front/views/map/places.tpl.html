@@ -9,24 +9,28 @@
             <table ng-table="tableParams" class="table table-hover">
                 <thead>
                     <tr>
-                        <th class="sortable" ng-class="{
+                        <th>
+                <div>L.P.</div>
+                </th>
+                <th class="sortable" ng-class="{
                           'sort-asc'
                                 :tableParams.isSortBy('name', 'asc'),
                           'sort-desc'
                                         :tableParams.isSortBy('name', 'desc')
                         }"
-                            ng-click="tableParams.sorting({'name': tableParams.isSortBy('name', 'asc') ? 'desc' : 'asc'})">
+                    ng-click="tableParams.sorting({'name': tableParams.isSortBy('name', 'asc') ? 'desc' : 'asc'})">
                 <div>Nazwa</div>
                 </th>
                 </tr>
                 </thead>
                 <tbody ng-hide="isLoading">
-                    <tr ng-repeat="point in $data" ng-click="selectPoint(point)">
+                    <tr ng-repeat="(key,point) in data" ng-click="selectPoint(point)">
+                        <td>{{key + 1}}</td>
                         <td>{{point.name}}</td>
                     </tr>
-                    <tr ng-if="$data.length === 0" col-span="1" empty-table></tr>
+                    <tr ng-if="points.length === 0" col-span="2" empty-table></tr>
                 </tbody>
-                <tbody col-span="1" ng-show="isLoading" loading-table></tbody>
+                <tbody col-span="2" ng-show="isLoading" loading-table></tbody>
             </table>
         </div>
     </div>

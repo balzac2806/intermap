@@ -61,3 +61,5 @@ Route::put('api/pollsters/{id}', 'PollsterController@store');
 Route::get('api/pollsters', 'PollsterController@create');
 Route::get('api/pollsters/{id}', 'PollsterController@show');
 Route::delete('api/pollsters/{id}', 'PollsterController@destroy');
+
+Route::get('api/map/geolocations', 'PlaceController@geolocations');

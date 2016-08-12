@@ -127,15 +127,10 @@ interMap.factory('LocalizationMapService', ['$rootScope', '$timeout', '$filter',
          * @param array localizations
          * @param bool editEnabled
          */
-        displayLocalizations: function (localizations, editEnabled) {
+        displayLocalizations: function (localizations) {
             localizations.forEach(function (localization) {
                 localization.point_lat_lng = [localization.lat, localization.lng];
                 var circle = L.circle(localization.point_lat_lng, localization.radius);
-                if (editEnabled) {
-                    circle.off('click').on('click', function () {
-                        $rootScope.$broadcast('elementEdit', localization);
-                    });
-                }
 
                 // Tooltips For Localizations
                 var popup = new L.Popup();
