@@ -280,6 +280,8 @@ interMap.controller('placeController', ['$scope', '$stateParams', '$rootScope', 
                     .then(function (response) {
                         if (response.data.success) {
                             $scope.place = response.data.place;
+                            $scope.place.lat = parseFloat($scope.place.lat);
+                            $scope.place.lng = parseFloat($scope.place.lng);
                         } else {
                             growl.addErrorMessage(response.data.error);
                         }

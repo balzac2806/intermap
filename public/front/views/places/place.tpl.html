@@ -82,6 +82,25 @@
                             <span ng-show="error.site" class="alert alert-danger">{{error.site[0]}}</span>
                         </div>
                     </div>
+                    <hr/>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Szerokość geograficzna</label>
+                        <div class="col-sm-4">
+                            <input type="number" min="-90" max="90" step="0.0000001" name="lat" class="form-control" ng-model="place.lat" />
+                        </div>
+                        <label class="col-sm-2 control-label">Długość geograficzna</label>
+                        <div class="col-sm-4">
+                            <input type="number" min="-180" max="180" step="0.0000001" name="lng" class="form-control" ng-model="place.lng" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10 col-md-offset-2">
+                            <span ng-show="placeForm.lat.$error.min" class="alert alert-danger">Szerokość geograficzna - minimalna wartość -90</span>
+                            <span ng-show="placeForm.lat.$error.max" class="alert alert-danger">Szerokość geograficzna - maksymalna wartość 90</span>
+                            <span ng-show="placeForm.lng.$error.min" class="alert alert-danger">Długość geograficzna - minimalna wartość -180</span>
+                            <span ng-show="placeForm.lng.$error.max" class="alert alert-danger">Długość geograficzna - maksymalna wartość 180</span>
+                        </div>
+                    </div>
                     <div class="line line-dashed b-b line-lg"></div>
                 </fieldset>
             </form>

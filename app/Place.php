@@ -20,6 +20,8 @@ class Place extends Authenticatable {
         'post_code',
         'city',
         'site',
+        'lat',
+        'lng'
     ];
 
     /**

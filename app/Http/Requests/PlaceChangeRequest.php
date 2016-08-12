@@ -19,6 +19,8 @@ class PlaceChangeRequest extends FormRequest {
         'post_code' => 'required|postCode',
         'city' => 'required',
         'site' => 'required|checkUrl',
+        'lat' => 'min:-90|max:90',
+        'lng' => 'min:-180|max:180',
     ];
 
     protected function changeInput(array $input, $id = null) {
