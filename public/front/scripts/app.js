@@ -1,4 +1,5 @@
-var interMap = angular.module('interMap', ['ngRoute', 'ngCookies', 'ui.router', 'angular-growl', 'ui.bootstrap', 'angular-input-stars']);
+var interMap = angular.module('interMap', ['ngRoute', 'ngCookies', 'ui.router', 'angular-growl', 'ui.bootstrap', 'angular-input-stars', 
+    'pascalprecht.translate', 'leaflet-directive']);
 
 interMap.config(['growlProvider', function (growlProvider) {
         growlProvider.globalTimeToLive(5000);

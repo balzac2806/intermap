@@ -106,6 +106,8 @@ interMap.controller('pollAnswerController', ['$scope', '$stateParams', '$rootSco
         };
 
         $scope.savePollAnswers = function (rate, editMode) {
+            rate.user_id = $rootScope.permissions.user.id;
+            rate.user_email = $rootScope.permissions.user.email;
             if (editMode) {
                 return $http.put(url + rate.poll_id, rate)
                         .then(function (response) {

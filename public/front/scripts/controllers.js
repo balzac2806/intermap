@@ -1023,6 +1023,8 @@ interMap.controller('pollAnswerController', ['$scope', '$stateParams', '$rootSco
         };
 
         $scope.savePollAnswers = function (rate, editMode) {
+            rate.user_id = $rootScope.permissions.user.id;
+            rate.user_email = $rootScope.permissions.user.email;
             if (editMode) {
                 return $http.put(url + rate.poll_id, rate)
                         .then(function (response) {
@@ -1152,8 +1154,10 @@ interMap.controller('pollsterController', ['$scope', '$stateParams', '$rootScope
 
     }]);
 
-interMap.controller('mapController', ['$scope', function ($scope) {
-        console.log('mapController');
+interMap.controller('mapController', ['$scope', 'LocalizationMapService', 'MapService', function ($scope, LocalizationMapService, MapService) {
+        $scope.map = LocalizationMapService.initMap();
+        $scope.map = LocalizationMapService.getMap();
+        $scope.map.fireEvent('resize');
     }]);
 
 //# sourceMappingURL=controllers.js.map

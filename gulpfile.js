@@ -58,7 +58,9 @@ gulp.task('default', function () {
         ], 'public/front/scripts/directives.js', 'front/app/scripts');
         
         mix.scripts([
-            'body/bodyServices.js'
+            'body/bodyServices.js',
+            'map/mapService.js',
+            'map/localizationMapService.js'
         ], 'public/front/scripts/services.js', 'front/app/scripts');
 
     });

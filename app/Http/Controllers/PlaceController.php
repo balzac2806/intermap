@@ -14,43 +14,6 @@ use App\Http\Requests,
 
 class PlaceController extends Controller {
 
-    /**
-     * Get a validator for an incoming user create request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data) {
-        return Validator::make($data, [
-                    'name' => 'required',
-                    'description' => 'required|max:255',
-                    'phone' => 'required',
-                    'address' => 'required',
-                    'post_code' => 'required',
-                    //                    'post_code' => array('required', 'Regex:/^([0-9]{2})(-[0-9]{3})?$/i'),
-                    'city' => 'required',
-                    'site' => 'required',
-        ]);
-    }
-
-    /**
-     * Get a validator for an incoming user update request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validatorUpdate(array $data) {
-        return Validator::make($data, [
-                    'name' => 'required',
-                    'description' => 'required|max:255',
-                    'phone' => 'required',
-                    'address' => 'required',
-                    'post_code' => 'required',
-                    'city' => 'required',
-                    'site' => 'required',
-        ]);
-    }
-
     public function create() {
         $success = true;
         $data = Place::getAll();
