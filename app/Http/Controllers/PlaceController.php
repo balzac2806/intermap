@@ -31,6 +31,7 @@ class PlaceController extends Controller {
                 $data[$key]->rate = '?';
             }
         }
+        // Tutaj Dodamy Sortowanie => Ilość Ocen, Nazwa, Ocena
 
         return Response::json(compact('success', 'data'));
     }
@@ -112,6 +113,13 @@ class PlaceController extends Controller {
             $data[$key]['radius'] = 40;
         }
 
+        return Response::json(compact('success', 'data'));
+    }
+    
+    public function rank() {
+        $success = true;
+        $data = Place::getRank();
+        
         return Response::json(compact('success', 'data'));
     }
 

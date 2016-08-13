@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="panel-body">
+        <table class="table table-hover" ng-if="!isLoading">
+            <thead>
+                <tr>
+                    <th>
+                        L.P.
+                    </th>
+                    <th class="col-md-1">                        
+                    </th>
+                    <th class="text-center">
+                        Ranking Uczelni W Polsce
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="list" ng-repeat="(key,place) in places">
+                    <td>{{key + 1}}</td>
+                    <td>
+                        <div star-rating stars="5" outer-star-selection="stars" outer-percent="rating" rating-define="percent" rating-percent="{{place.rate * 20}}" star-radius="10" sel-color="gold" back-color=""></div>
+                        <h5 class="ng-binding"><strong>Ocena: {{place.rate}}/5</strong></h5><hr/>
+                        <p><b>Ilość ocen: {{place.count}}</b></p>
+                    </td>
+                    <td class="text-center">
+                        <h3><a ui-sref="placeView({placeId: place.id})"><strong>{{place.name}}</strong></a></h3>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" ng-click="addRate(place)">Oceń</button>
+                    </td>
+                </tr>
+                <tr ng-if="places.length === 0">
+                    <td colspan="3" class="text-center">
+                        <h3>Brak Wyników !</h3>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

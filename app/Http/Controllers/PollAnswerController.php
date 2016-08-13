@@ -55,11 +55,8 @@ class PollAnswerController extends Controller {
     public function store($id = null) {
         $data = Input::all();
         
-        $auth= Auth::check();
-        if (!empty($auth)) {
-            $user['id'] = $data['user_id'];
-            $user['email'] = $data['user_email'];
-        }
+        $user['id'] = $data['user_id'];
+        $user['email'] = $data['user_email'];
 
         $answers = [];
         $data = [];
