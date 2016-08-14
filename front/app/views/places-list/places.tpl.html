@@ -1,12 +1,23 @@
 <div class="row">
     <div class="panel-body">
+        <div class="form-group">
+            <label class="control-label col-md-1 col-md-offset-11">Sortuj wg:</label>
+        </div>
+        <div class="form-group">
+            <select class="btn btn-primary col-md-1 col-md-offset-11" name="sort" id="sort" ng-model="sort">
+                <option ng-repeat="option in sortOptions" value="{{option.id}}">{{option.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="panel-body">
         <table class="table table-hover" ng-if="!isLoading">
             <thead>
                 <tr>
-                    <th>
-                        Lista Uczelni W Polsce
+                    <th class="col-md-1">
+
                     </th>
-                    <th>
+                    <th class="text-center">
+                        Lista Uczelni W Polsce
                     </th>
                 </tr>
             </thead>

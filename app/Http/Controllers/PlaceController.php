@@ -15,6 +15,8 @@ use App\Http\Requests,
 class PlaceController extends Controller {
 
     public function create() {
+        $input = Input::all();
+
         $success = true;
         $data = Place::getAll();
         $rates = Place::getOverallRate();
@@ -31,7 +33,27 @@ class PlaceController extends Controller {
                 $data[$key]->rate = '?';
             }
         }
-        // Tutaj Dodamy Sortowanie => Ilość Ocen, Nazwa, Ocena
+
+        $data = $array = json_decode(json_encode($data), true);
+
+        if (!empty($input['sort'])) {
+
+            $sortArray = array();
+
+            foreach ($data as $place) {
+                foreach ($place as $key => $value) {
+                    if (!isset($sortArray[$key])) {
+                        $sortArray[$key] = array();
+                    }
+                    $sortArray[$key][] = $value;
+                }
+            }
+
+            $sort = ($input['sort'] == 'name')? SORT_ASC : SORT_DESC;
+            $orderby = $input['sort']; 
+
+            array_multisort($sortArray[$orderby], $sort, $data);
+        }
 
         return Response::json(compact('success', 'data'));
     }
@@ -93,7 +115,7 @@ class PlaceController extends Controller {
         }
 
         $place->delete();
-        
+
         PollAnswer::where('object_id', $id)->delete();
         Opinion::where('object_id', $id)->delete();
 
@@ -101,7 +123,7 @@ class PlaceController extends Controller {
 
         return Response::json(compact('success'));
     }
-    
+
     public function geolocations() {
         $success = true;
         $data = Place::select('name', 'lat', 'lng')
@@ -109,17 +131,17 @@ class PlaceController extends Controller {
                 ->whereNotNull('lng')
                 ->orderBy('name')
                 ->get();
-        foreach($data as $key => $val) {
+        foreach ($data as $key => $val) {
             $data[$key]['radius'] = 40;
         }
 
         return Response::json(compact('success', 'data'));
     }
-    
+
     public function rank() {
         $success = true;
         $data = Place::getRank();
-        
+
         return Response::json(compact('success', 'data'));
     }
 

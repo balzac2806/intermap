@@ -320,16 +320,23 @@ interMap.controller('placeController', ['$scope', '$stateParams', '$rootScope', 
 
 interMap.controller('placesListController', ['$scope', '$rootScope', '$http', '$state', 'growl', '$uibModal', function ($scope, $rootScope, $http, $state, growl, $uibModal) {
 
+        $scope.sortOptions = [
+            {id: 'name', name: 'Nazwy'},
+            {id: 'rate', name: 'Ocen'},
+            {id: 'count', name: 'Ilości Ocen'},
+        ];
+
         var url = '/api/place/';
 
-        $scope.getPlaces = function () {
-            return $http.get(url);
+        $scope.getPlaces = function (sortParam) {
+            return $http.get(url, {params: {sort: sortParam}});
         };
 
         $scope.getPlaces()
                 .then(function (response) {
                     if (response.data.success) {
                         $scope.places = response.data.data;
+                        $scope.sort = 'name';
                     }
                 });
 
@@ -352,6 +359,17 @@ interMap.controller('placesListController', ['$scope', '$rootScope', '$http', '$
                 growl.addSuccessMessage('Ankieta została dodana pomyślnie !');
             });
         };
+
+        $scope.$watch('sort', function (newVal, oldVal) {
+            if (angular.isDefined(oldVal) && angular.isDefined(newVal) && newVal != oldVal) {
+                $scope.getPlaces(newVal)
+                        .then(function (response) {
+                            if (response.data.success) {
+                                $scope.places = response.data.data;
+                            }
+                        });
+            }
+        });
 
     }]);
 
