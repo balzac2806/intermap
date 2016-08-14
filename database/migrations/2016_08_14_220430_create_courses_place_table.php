@@ -14,6 +14,7 @@ class CreateCoursesPlaceTable extends Migration {
         Schema::create('courses_place', function (Blueprint $table) {
             $table->integer('course_id');
             $table->integer('place_id');
+            $table->timestamps();
         });
     }
 

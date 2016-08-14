@@ -52,7 +52,8 @@ gulp.task('default', function () {
             'pollster/pollstersControllers.js',
             'map/mapControllers.js',
             'rank/rankControllers.js',
-            'geolocalisations/geolocalisationsControllers.js'
+            'geolocalisations/geolocalisationsControllers.js',
+            'courses/coursesControllers.js'
         ], 'public/front/scripts/controllers.js', 'front/app/scripts');
 
         mix.scripts([

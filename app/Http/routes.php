@@ -62,12 +62,17 @@ Route::get('api/pollsters', 'PollsterController@create');
 Route::get('api/pollsters/{id}', 'PollsterController@show');
 Route::delete('api/pollsters/{id}', 'PollsterController@destroy');
 
-
 // Geolokalizacje
 Route::get('api/map/geolocations', 'PlaceController@geolocations');
 Route::get('api/geolocations', 'PlaceController@geolocationsPlaces');
 Route::get('api/geolocations/get-coordinates', 'PlaceController@getCoordinates');
 
-
 // Ranking
 Route::get('api/rank/places', 'PlaceController@rank');
+
+// Kierunki
+Route::post('api/courses', 'CourseController@store');
+Route::put('api/courses/{id}', 'CourseController@store');
+Route::get('api/courses', 'CourseController@create');
+Route::get('api/courses/{id}', 'CourseController@show');
+Route::delete('api/courses/{id}', 'CourseController@destroy');

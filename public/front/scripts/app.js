@@ -1,4 +1,4 @@
-var interMap = angular.module('interMap', ['ngRoute', 'ngCookies', 'ui.router', 'angular-growl', 'ui.bootstrap', 'angular-input-stars', 
+var interMap = angular.module('interMap', ['ngRoute', 'ngCookies', 'ui.router', 'angular-growl', 'ui.bootstrap', 'angular-input-stars',
     'pascalprecht.translate', 'leaflet-directive']);
 
 interMap.config(['growlProvider', function (growlProvider) {
@@ -158,6 +158,22 @@ interMap.config(['$stateProvider', '$urlRouterProvider',
                     url: "/geolocalisations",
                     templateUrl: "front/views/geolocalisations/index.tpl.html",
                     controller: 'geolocalisationsController',
+                })
+                // Kierunki
+                .state('courses', {
+                    url: "/courses",
+                    templateUrl: "front/views/courses/courses.tpl.html",
+                    controller: 'coursesController',
+                })
+                .state('newCourse', {
+                    url: "/course",
+                    templateUrl: "front/views/courses/course.tpl.html",
+                    controller: 'courseController',
+                })
+                .state('editCourse', {
+                    url: "/course/:courseId",
+                    templateUrl: "front/views/courses/course.tpl.html",
+                    controller: 'courseController',
                 })
     }]);
 

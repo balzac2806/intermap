@@ -44,6 +44,9 @@
         <li ng-show="admin && permissions.user.role == 'admin'" class="sidebar-list sidebar-list-child">
             <a ui-sref="geolocalisations" ng-class="{ 'actives': isActive($state, 'geolocalisations')}">Geolokalizacje <span class="menu-icon fa fa-map-marker"></span></a>
         </li>
+        <li ng-show="admin && permissions.user.role == 'admin'" class="sidebar-list sidebar-list-child">
+            <a ui-sref="courses" ng-class="{ 'actives': isActive($state, 'courses')}">Kierunki <span class="menu-icon fa fa-paragraph"></span></a>
+        </li>
     </ul>
     <div class="sidebar-footer">
         <div class="col-xs-4">
