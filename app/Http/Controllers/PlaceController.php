@@ -49,8 +49,8 @@ class PlaceController extends Controller {
                 }
             }
 
-            $sort = ($input['sort'] == 'name')? SORT_ASC : SORT_DESC;
-            $orderby = $input['sort']; 
+            $sort = ($input['sort'] == 'name') ? SORT_ASC : SORT_DESC;
+            $orderby = $input['sort'];
 
             array_multisort($sortArray[$orderby], $sort, $data);
         }
@@ -138,9 +138,62 @@ class PlaceController extends Controller {
         return Response::json(compact('success', 'data'));
     }
 
+    public function geolocationsPlaces() {
+        $success = true;
+        $data = Place::select('name', 'lat', 'lng')
+                ->orderBy('name')
+                ->get();
+
+        return Response::json(compact('success', 'data'));
+    }
+
     public function rank() {
         $success = true;
         $data = Place::getRank();
+
+        return Response::json(compact('success', 'data'));
+    }
+
+    public function getCoordinates() {
+        $data = Place::select('id', 'name', 'address', 'city')
+                ->whereNull('lat')
+                ->orWhereNull('lng')
+                ->orderBy('name')
+                ->get();
+
+        foreach ($data as &$data) {
+
+            $params = [
+                'address' => $data['address'] . ', ' . $data['city']
+            ];
+
+            $curl = curl_init(sprintf('%s?%s', 'https://maps.googleapis.com/maps/api/geocode/json', http_build_query($params)));
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            $curlResponse = curl_exec($curl);
+
+            if (!$curlResponse) {
+                $info = curl_getinfo($curl);
+                curl_close($info);
+                throw new CurlNotConnectedException;
+            }
+            curl_close($curl);
+            $response = json_decode($curlResponse);
+            if (isset($response->status) && $response->status == 'ERROR') {
+                throw new CurlErrorException('error occured: ' . $response->response->errormessage);
+            }
+
+            if (!empty($response->results[0])) {
+                $coordinates = (array) $response->results[0]->geometry->location;
+            }
+            
+            if (!empty($coordinates)) {
+                Place::where('id', $data['id'])
+                        ->update(array(
+                            'lat' => $coordinates['lat'],
+                            'lng' => $coordinates['lng']
+                ));
+            }
+        }
 
         return Response::json(compact('success', 'data'));
     }

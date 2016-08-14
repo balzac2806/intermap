@@ -153,6 +153,12 @@ interMap.config(['$stateProvider', '$urlRouterProvider',
                     templateUrl: "front/views/pollsters/pollster.tpl.html",
                     controller: 'pollsterController',
                 })
+                // Geolokalizacje
+                .state('geolocalisations', {
+                    url: "/geolocalisations",
+                    templateUrl: "front/views/geolocalisations/index.tpl.html",
+                    controller: 'geolocalisationsController',
+                })
     }]);
 
 

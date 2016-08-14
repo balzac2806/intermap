@@ -255,6 +255,8 @@ class ComposerStaticInit816ae24ff7d1e3f0777d89b2c99aab9e
     public static $classMap = array (
         'AddColumnRoleToUsersTable' => __DIR__ . '/../..' . '/database/migrations/2016_04_23_215117_add_column_role_to_users_table.php',
         'AddLatLngToPlacesTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_12_113926_add_lat_lng_to_places_table.php',
+        'CreateCoursesPlaceTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_14_220430_create_courses_place_table.php',
+        'CreateCoursesTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_14_220310_create_courses_table.php',
         'CreateOpinionsTable' => __DIR__ . '/../..' . '/database/migrations/2016_05_15_170431_create_opinions_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
         'CreatePlacesTable' => __DIR__ . '/../..' . '/database/migrations/2016_05_15_152547_create_places_table.php',

@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-12">
+            <div class="form-group">
+                <button class="btn btn-primary col-md-2 col-md-offset-10" ng-click="getCoordinates()">Pobierz współrzędne</button>
+            </div>
+        </div>
+        <div id="table-params">
+            <table ng-table="tableParams" class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                <div>L.P.</div>
+                </th>
+                <th class="sortable" ng-class="{
+                          'sort-asc'
+                                :tableParams.isSortBy('name', 'asc'),
+                          'sort-desc'
+                                        :tableParams.isSortBy('name', 'desc')
+                        }"
+                    ng-click="tableParams.sorting({'name': tableParams.isSortBy('name', 'asc') ? 'desc' : 'asc'})">
+                <div>Nazwa</div>
+                </th>
+                <th>
+                <div>Szerokość geograficzna</div>
+                </th>
+                <th>
+                <div>Długość geograficzna</div>
+                </th>
+                </tr>
+                </thead>
+                <tbody ng-hide="isLoading">
+                    <tr ng-repeat="(key,point) in data" ng-click="selectPoint(point)">
+                        <td>{{key + 1}}</td>
+                        <td>{{point.name}}</td>
+                        <td>{{point.lat}}</td>
+                        <td>{{point.lng}}</td>
+                    </tr>
+                    <tr ng-if="points.length === 0" col-span="2" empty-table></tr>
+                </tbody>
+                <tbody col-span="2" ng-show="isLoading" loading-table></tbody>
+            </table>
+        </div>
+    </div>
+</div>

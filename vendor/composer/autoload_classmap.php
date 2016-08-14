@@ -8,6 +8,8 @@ $baseDir = dirname($vendorDir);
 return array(
     'AddColumnRoleToUsersTable' => $baseDir . '/database/migrations/2016_04_23_215117_add_column_role_to_users_table.php',
     'AddLatLngToPlacesTable' => $baseDir . '/database/migrations/2016_08_12_113926_add_lat_lng_to_places_table.php',
+    'CreateCoursesPlaceTable' => $baseDir . '/database/migrations/2016_08_14_220430_create_courses_place_table.php',
+    'CreateCoursesTable' => $baseDir . '/database/migrations/2016_08_14_220310_create_courses_table.php',
     'CreateOpinionsTable' => $baseDir . '/database/migrations/2016_05_15_170431_create_opinions_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreatePlacesTable' => $baseDir . '/database/migrations/2016_05_15_152547_create_places_table.php',

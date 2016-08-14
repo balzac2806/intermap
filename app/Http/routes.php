@@ -65,6 +65,8 @@ Route::delete('api/pollsters/{id}', 'PollsterController@destroy');
 
 // Geolokalizacje
 Route::get('api/map/geolocations', 'PlaceController@geolocations');
+Route::get('api/geolocations', 'PlaceController@geolocationsPlaces');
+Route::get('api/geolocations/get-coordinates', 'PlaceController@getCoordinates');
 
 
 // Ranking
