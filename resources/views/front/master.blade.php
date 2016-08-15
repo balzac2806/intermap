@@ -8,7 +8,8 @@
         <link rel="stylesheet" type="text/css" href="{{asset('bower_components/angular-growl/build/angular-growl.min.css')}}"/>
         <link rel="stylesheet" type="text/css" href="{{asset('bower_components/angular-input-stars-directive/angular-input-stars.css')}}"/>
         <link rel="stylesheet" type="text/css" href="{{asset('bower_components/leaflet/dist/leaflet.css')}}"/>
-        <link rel="stylesheet" type="text/css" href="{{asset('/bower_components/leaflet-draw/dist/leaflet.draw.css')}}"/>
+        <link rel="stylesheet" type="text/css" href="{{asset('bower_components/leaflet-draw/dist/leaflet.draw.css')}}"/>
+        <link rel="stylesheet" type="text/css" href="{{asset('bower_components/angular-ui-select/dist/select.min.css')}}"/>
         <!--<link rel="stylesheet" type="text/css" href="{{asset('bower_components/Leaflet.label/dist/leaflet.label.css')}}"/>-->
     </head>
     <body ng-controller="bodyController">
@@ -65,6 +66,8 @@
         <script type="text/javascript" src="{{asset('bower_components/angular-input-stars-directive/angular-input-stars.js')}}"></script>
         <script type="text/javascript" src="{{asset('bower_components/angular-cookies/angular-cookies.js')}}"></script>
         <script type="text/javascript" src="{{asset('bower_components/angular-translate/angular-translate.min.js')}}"></script>
+        <script type="text/javascript" src="{{asset('bower_components/angular-ui-select/dist/select.min.js')}}"></script>
+        <script type="text/javascript" src="{{asset('bower_components/angular-highlightjs/build/angular-highlightjs.js')}}"></script>
         <!-- Leaflet -->
         <script type="text/javascript" src="{{asset('bower_components/leaflet/dist/leaflet.js')}}"></script>
         <script type="text/javascript" src="{{asset('bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.min.js')}}"></script>

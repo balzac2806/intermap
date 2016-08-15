@@ -10,7 +10,9 @@ use App\Http\Requests,
     App\Opinion,
     App\User,
     App\Http\Requests\PlaceChangeRequest,
-    App\PollAnswer;
+    App\PollAnswer,
+    App\Course,
+    App\CoursesPlace;
 
 class PlaceController extends Controller {
 
@@ -59,13 +61,25 @@ class PlaceController extends Controller {
     }
 
     public function store($id = null) {
-        $valid = new PlaceChangeRequest(Input::all(), $id);
+        $input = Input::all();
+        $valid = new PlaceChangeRequest($input, $id);
 
         if ($valid->fails())
             return $valid->failResponse();
 
-        $place = Place::createOrUpdate(Input::all(), $id);
+        $place = Place::createOrUpdate($input, $id);
 
+        CoursesPlace::where('place_id', $id)->delete();
+        if (!empty($input['courses'])) {
+            foreach ($input['courses'] as $course) {
+                CoursesPlace::insert(array(
+                    'place_id' => $id,
+                    'course_id' => $course,
+                    'created_at' => 'now()',
+                    'updated_at' => 'now()'
+                ));
+            }
+        }
         $success = !empty($place);
 
         return Response::json(compact('success', 'place'));
@@ -93,15 +107,46 @@ class PlaceController extends Controller {
             $place['count'] = $rate[0]->count;
             $place['rate'] = round(($rate[0]->answer_overall / $rate[0]->answer_count), 2);
         }
+        $courses = CoursesPlace::select('course_id')
+                ->where('place_id', $id)
+                ->get()
+                ->toArray();
+        
+        $place['courses'] = array_column($courses, 'course_id');
 
         $opinions = Opinion::where('object_id', '=', $id)->get()->toArray();
 
         $users = User::select('id', 'email')->get()->toArray();
         $users = array_column($users, 'email', 'id');
+        $courses = Course::select('id', 'name')->get()->toArray();
 
         $success = true;
 
-        return Response::json(compact('success', 'place', 'opinions', 'users'));
+        return Response::json(compact('success', 'place', 'opinions', 'users', 'courses'));
+    }
+
+    public function courses() {
+        $courses = Course::select('id', 'name')->get()->toArray();
+
+        $success = true;
+
+        return Response::json(compact('success', 'courses'));
+    }
+
+    public function searchCourses() {
+        $input = Input::all();
+        $search = '';
+        if (!empty($input['search'])) {
+            $search = $input['search'];
+        }
+        $search = '%' . $search . '%';
+        $courses = Course::select('id', 'name')
+                ->where('name', 'like', $search)
+                ->get()
+                ->toArray();
+
+        $success = true;
+        return Response::json(compact('success', 'courses'));
     }
 
     public function destroy($id) {
@@ -185,7 +230,7 @@ class PlaceController extends Controller {
             if (!empty($response->results[0])) {
                 $coordinates = (array) $response->results[0]->geometry->location;
             }
-            
+
             if (!empty($coordinates)) {
                 Place::where('id', $data['id'])
                         ->update(array(

@@ -32,6 +32,8 @@ Route::post('api/place', 'PlaceController@store');
 Route::put('api/place/{id}', 'PlaceController@store');
 Route::get('api/place', 'PlaceController@create');
 Route::get('api/place/{id}', 'PlaceController@show');
+Route::get('api/courses/place', 'PlaceController@courses');
+Route::get('api/courses/place/find', 'PlaceController@searchCourses');
 Route::delete('api/place/{id}', 'PlaceController@destroy');
 
 // Pytania 

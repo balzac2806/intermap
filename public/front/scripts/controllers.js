@@ -262,7 +262,7 @@ interMap.controller('placesController', ['$scope', '$rootScope', '$http', '$stat
 
     }]);
 
-interMap.controller('placeController', ['$scope', '$stateParams', '$rootScope', '$http', '$state', 'growl', function ($scope, $stateParams, $rootScope, $http, $state, growl) {
+interMap.controller('placeController', ['$scope', '$stateParams', '$rootScope', '$http', '$state', 'growl', '$filter', function ($scope, $stateParams, $rootScope, $http, $state, growl, $filter) {
 
         if (angular.isDefined($stateParams.placeId)) {
             $scope.placeId = $stateParams.placeId;
@@ -287,6 +287,15 @@ interMap.controller('placeController', ['$scope', '$stateParams', '$rootScope', 
                         }
                     });
         }
+
+        $http.get('/api/courses/place/')
+                .then(function (response) {
+                    if (response.data.success) {
+                        $scope.courses = response.data.courses;
+                    } else {
+                        growl.addErrorMessage(response.data.error);
+                    }
+                });
 
         $scope.cancel = function () {
             $state.go('places');
@@ -314,6 +323,24 @@ interMap.controller('placeController', ['$scope', '$stateParams', '$rootScope', 
                             }
                         });
             }
+        };
+
+        $scope.autocomplete = function (search) {
+            $http.get('/api/courses/place/find/', {params: {search: search}})
+                    .then(function (data) {
+                        if (data.success) {
+                            var courses = [];
+                            var courses = data.courses;
+                            angular.forEach($scope.courses, function (val, key) {
+                                angular.forEach(data.courses, function (v, k) {
+                                    if (val == v.id) {
+                                        courses.splice(k, 1);
+                                    }
+                                });
+                            });
+                            $scope.courses = courses;
+                        }
+                    });
         };
 
     }]);

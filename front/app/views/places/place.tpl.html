@@ -82,6 +82,17 @@
                             <span ng-show="error.site" class="alert alert-danger">{{error.site[0]}}</span>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Kierunki studiów</label>
+                        <div class="col-sm-10">
+                            <ui-select ng-model="place.courses" multiple name="courses" theme="bootstrap" reset-search-input="true">
+                                <ui-select-match placeholder="Wpisz i wybierz kierunek...">{{$item.name}}</ui-select-match>
+                                <ui-select-choices  refresh="autocomplete($select.search)" refresh-delay="0" repeat="course.id as course in courses | filter:$select.search">
+                                    <div ng-bind-html="course.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
                     <hr/>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Szerokość geograficzna</label>
