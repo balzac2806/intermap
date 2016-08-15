@@ -8,9 +8,55 @@ interMap.controller('placesListController', ['$scope', '$rootScope', '$http', '$
 
         var url = '/api/place/';
 
-        $scope.getPlaces = function (sortParam) {
-            return $http.get(url, {params: {sort: sortParam}});
+        $scope.getPlaces = function (sortParam, findParams) {
+            return $http.get(url, {params: {sort: sortParam, find: findParams}});
         };
+
+        $http.get('/api/courses/place/')
+                .then(function (response) {
+                    if (response.data.success) {
+                        $scope.courses = response.data.courses;
+                        $scope.voivodeships = response.data.voivodeships;
+                    } else {
+                        growl.addErrorMessage(response.data.error);
+                    }
+                });
+
+        $scope.search = {};
+
+        $scope.searchPlaces = function (search) {
+            var find = angular.copy(search);
+            $scope.getPlaces($scope.sort, find)
+                    .then(function (response) {
+                        if (response.data.success) {
+                            $scope.places = response.data.data;
+                            $scope.isFind = false;
+                        }
+                    });
+        };
+
+        $scope.clearSearch = function () {
+            delete $scope.search.name;
+            delete $scope.search.voivodeship;
+            delete $scope.search.course;
+            $scope.search = {};
+            $scope.getPlaces($scope.sort)
+                    .then(function (response) {
+                        if (response.data.success) {
+                            $scope.places = response.data.data;
+                        }
+                    });
+        };
+
+        $scope.$watch('search', function (newValue, oldValue) {
+            $scope.check = false;
+            if (angular.isDefined($scope.search.name) || angular.isDefined($scope.search.voivodeship)
+                    || angular.isDefined($scope.search.course)) {
+                $scope.check = true;
+            } else {
+                $scope.check = false;
+            }
+        }, true);
 
         $scope.getPlaces()
                 .then(function (response) {

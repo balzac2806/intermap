@@ -1,5 +1,53 @@
 <div class="row">
     <div class="panel-body">
+        <form name="searchForm">
+            <fieldset>
+                <div class="col-sm-12 col-md-3">
+                    <div class="form-group activites-select">
+                        <label for="name">Nazwa</label>
+                        <input type="text" name="name" class="form-control" ng-model="search.name" required/>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3">
+                    <div class="form-group activites-select">
+                        <label for="voivodeship">Województwo</label>
+                        <div class="col-sm-10">
+                            <ui-select ng-model="search.voivodeship" name="voivodeship" theme="bootstrap" reset-search-input="true">
+                                <ui-select-match placeholder="Wpisz i wybierz województwo...">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices  refresh="autocompleteVoivd($select.search)" refresh-delay="0" repeat="voivodeship.id as voivodeship in voivodeships | filter:$select.search">
+                                    <div ng-bind-html="voivodeship.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-3">
+                    <div class="form-group activites-select">
+                        <label for="course">Kierunek</label>
+                        <div class="col-sm-10">
+                           <ui-select ng-model="search.course" name="courses" theme="bootstrap" reset-search-input="true">
+                                <ui-select-match placeholder="Wpisz i wybierz kierunek...">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices  refresh="autocomplete($select.search)" refresh-delay="0" repeat="course.id as course in courses | filter:$select.search">
+                                    <div ng-bind-html="course.name | highlight: $select.search"></div>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12 col-md-3">
+                        <div class="form-group">
+                            <label>&nbsp;</label>
+                            <div class="btn-group btn-group-justified">
+                                <a class="btn btn-info rounded" ng-click="searchPlaces(search)"><i class="fa fa-search"></i></a>
+                                <a class="btn btn-danger rounded" ng-if="check" ng-click="clearSearch()"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                    </div>
+            </fieldset>
+        </form>
+    </div>
+    <div class="panel-body">
         <div class="form-group">
             <label class="control-label col-md-1 col-md-offset-11">Sortuj wg:</label>
         </div>

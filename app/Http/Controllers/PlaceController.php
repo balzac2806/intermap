@@ -20,9 +20,26 @@ class PlaceController extends Controller {
 
     public function create() {
         $input = Input::all();
-
+        if (!empty($input['find'])) {
+            $find = json_decode($input['find'], true);
+        }
         $success = true;
-        $data = Place::getAll();
+        $data = Place::select('*');
+        if (!empty($find)) {
+            if (!empty($find['name'])) {
+                $data = $data->whereRaw('LOWER(name) LIKE ?', ['%' . strtolower($find['name']) . '%']);
+            }
+            if (!empty($find['voivodeship'])) {
+                $data = $data->leftJoin('voivodeship_place', 'voivodeship_place.place_id', '=', 'places.id')
+                        ->where('voivodeship_place.voivodeship_id', $find['voivodeship']);
+            }
+            if (!empty($find['course'])) {
+                $data = $data->leftJoin('courses_place', 'courses_place.place_id', '=', 'places.id')
+                        ->where('courses_place.course_id', $find['course']);
+            }
+        }
+        $data = $data->get();
+
         $rates = Place::getOverallRate();
 
         foreach ($data as $key => $val) {
@@ -40,7 +57,7 @@ class PlaceController extends Controller {
 
         $data = $array = json_decode(json_encode($data), true);
 
-        if (!empty($input['sort'])) {
+        if (!empty($input['sort']) && !empty($data)) {
 
             $sortArray = array();
 
@@ -130,7 +147,7 @@ class PlaceController extends Controller {
                 ->get()
                 ->toArray();
 
-        if(!empty($voivodeships[0])) {
+        if (!empty($voivodeships[0])) {
             $place['voivodeship'] = $voivodeships[0]['voivodeship_id'];
         } else {
             $place['voivodeship'] = null;
