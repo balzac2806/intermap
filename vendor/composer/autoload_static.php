@@ -264,6 +264,8 @@ class ComposerStaticInit816ae24ff7d1e3f0777d89b2c99aab9e
         'CreatePollTable' => __DIR__ . '/../..' . '/database/migrations/2016_05_15_164308_create_poll_table.php',
         'CreatePollstersTable' => __DIR__ . '/../..' . '/database/migrations/2016_05_15_183709_create_pollsters_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
+        'CreateVoivodeshipPlaceTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_15_200330_create_voivodeship_place_table.php',
+        'CreateVoivodeshipsTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_15_192907_create_voivodeships_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',

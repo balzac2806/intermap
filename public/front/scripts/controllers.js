@@ -292,6 +292,7 @@ interMap.controller('placeController', ['$scope', '$stateParams', '$rootScope', 
                 .then(function (response) {
                     if (response.data.success) {
                         $scope.courses = response.data.courses;
+                        $scope.voivodeships = response.data.voivodeships;
                     } else {
                         growl.addErrorMessage(response.data.error);
                     }
@@ -339,6 +340,24 @@ interMap.controller('placeController', ['$scope', '$stateParams', '$rootScope', 
                                 });
                             });
                             $scope.courses = courses;
+                        }
+                    });
+        };
+        
+        $scope.autocomplete = function (search) {
+            $http.get('/api/voivodeships/place/find/', {params: {search: search}})
+                    .then(function (data) {
+                        if (data.success) {
+                            var voivodeships = [];
+                            var voivodeships = data.voivodeships;
+                            angular.forEach($scope.voivodeships, function (val, key) {
+                                angular.forEach(data.voivodeships, function (v, k) {
+                                    if (val == v.id) {
+                                        voivodeships.splice(k, 1);
+                                    }
+                                });
+                            });
+                            $scope.voivodeships = voivodeships;
                         }
                     });
         };
@@ -1405,6 +1424,109 @@ interMap.controller('courseController', ['$scope', '$stateParams', '$rootScope',
                             if (response.data.success) {
                                 growl.addSuccessMessage('Kierunek został dodany !');
                                 $state.go('courses');
+                            } else {
+                                $scope.error = response.data.error;
+                            }
+                        });
+            }
+        };
+
+    }]);
+
+interMap.controller('voivodeshipsController', ['$scope', '$rootScope', '$http', '$state', 'growl', function ($scope, $rootScope, $http, $state, growl) {
+
+        var url = '/api/voivodeships/';
+
+        $scope.getVoivodeships = function () {
+            return $http.get(url);
+        };
+
+        $scope.removeVoivodeship = function (id) {
+            return $http.delete(url + id);
+        }
+
+        $scope.getVoivodeships()
+                .then(function (response) {
+                    if (response.data.success) {
+                        $scope.voivodeships = response.data.data;
+                    }
+                });
+
+        $scope.remove = function ($event, id) {
+            $event.stopImmediatePropagation();
+
+            $scope.removeVoivodeship(id).
+                    success(function (data) {
+                        if (data.success) {
+                            angular.forEach($scope.voivodeships, function (val, key) {
+                                if (val.id == data.voivodeship.id) {
+                                    $scope.voivodeships.splice(key, 1);
+                                }
+                            });
+                            growl.addSuccessMessage('Województwo zostało usunięte !');
+                        } else if (data.error) {
+                            growl.addErrorMessage(data.error);
+                        }
+                    });
+        };
+
+        $scope.editVoivodeship = function (id) {
+            var params = {};
+            params.voivodeshipId = id;
+            $state.go('editVoivodeship', params);
+        };
+
+        $scope.addVoivodeship = function () {
+            $state.go('newVoivodeship');
+        };
+
+    }]);
+
+interMap.controller('voivodeshipController', ['$scope', '$stateParams', '$rootScope', '$http', '$state', 'growl', function ($scope, $stateParams, $rootScope, $http, $state, growl) {
+
+        if (angular.isDefined($stateParams.voivodeshipId)) {
+            $scope.voivodeshipId = $stateParams.voivodeshipId;
+        }
+
+        $scope.editMode = false;
+        $scope.voivodeship = {};
+
+        var url = '/api/voivodeships/';
+
+        if (angular.isDefined($scope.voivodeshipId)) {
+            $scope.editMode = true;
+
+            $http.get(url + $scope.voivodeshipId)
+                    .then(function (response) {
+                        if (response.data.success) {
+                            $scope.voivodeship = response.data.voivodeship;
+                        } else {
+                            growl.addErrorMessage(response.data.error);
+                        }
+                    });
+        }
+
+        $scope.cancel = function () {
+            $state.go('voivodeships');
+        };
+
+        $scope.saveVoivodeship = function (voivodeship, editMode) {
+            if (editMode) {
+                return $http.put(url + $scope.voivodeship.id, voivodeship)
+                        .then(function (response) {
+                            if (response.data.success) {
+                                growl.addSuccessMessage('Województwo zostało zaktualizowane !');
+                                $state.go('voivodeships');
+                            } else {
+                                $scope.error = response.data.error;
+                            }
+                        });
+            } else {
+                return $http.post(url, voivodeship)
+                        .then(function (response) {
+                            if (response.data.success) {
+                                growl.addSuccessMessage('Województwo zostało dodane !');
+                                $state.go('voivodeships');
                             } else {
                                 $scope.error = response.data.error;
                             }

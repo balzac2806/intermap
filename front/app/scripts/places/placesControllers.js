@@ -77,6 +77,7 @@ interMap.controller('placeController', ['$scope', '$stateParams', '$rootScope', 
                 .then(function (response) {
                     if (response.data.success) {
                         $scope.courses = response.data.courses;
+                        $scope.voivodeships = response.data.voivodeships;
                     } else {
                         growl.addErrorMessage(response.data.error);
                     }
@@ -124,6 +125,24 @@ interMap.controller('placeController', ['$scope', '$stateParams', '$rootScope', 
                                 });
                             });
                             $scope.courses = courses;
+                        }
+                    });
+        };
+        
+        $scope.autocomplete = function (search) {
+            $http.get('/api/voivodeships/place/find/', {params: {search: search}})
+                    .then(function (data) {
+                        if (data.success) {
+                            var voivodeships = [];
+                            var voivodeships = data.voivodeships;
+                            angular.forEach($scope.voivodeships, function (val, key) {
+                                angular.forEach(data.voivodeships, function (v, k) {
+                                    if (val == v.id) {
+                                        voivodeships.splice(k, 1);
+                                    }
+                                });
+                            });
+                            $scope.voivodeships = voivodeships;
                         }
                     });
         };

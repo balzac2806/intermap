@@ -12,7 +12,9 @@ use App\Http\Requests,
     App\Http\Requests\PlaceChangeRequest,
     App\PollAnswer,
     App\Course,
-    App\CoursesPlace;
+    App\CoursesPlace,
+    App\Voivodeship,
+    App\VoivodeshipPlace;
 
 class PlaceController extends Controller {
 
@@ -80,6 +82,15 @@ class PlaceController extends Controller {
                 ));
             }
         }
+        VoivodeshipPlace::where('place_id', $id)->delete();
+        if (!empty($input['voivodeship'])) {
+            VoivodeshipPlace::insert(array(
+                'place_id' => $id,
+                'voivodeship_id' => $input['voivodeship'],
+                'created_at' => 'now()',
+                'updated_at' => 'now()'
+            ));
+        }
         $success = !empty($place);
 
         return Response::json(compact('success', 'place'));
@@ -111,26 +122,39 @@ class PlaceController extends Controller {
                 ->where('place_id', $id)
                 ->get()
                 ->toArray();
-        
+
         $place['courses'] = array_column($courses, 'course_id');
+
+        $voivodeships = VoivodeshipPlace::select('voivodeship_id')
+                ->where('place_id', $id)
+                ->get()
+                ->toArray();
+
+        if(!empty($voivodeships[0])) {
+            $place['voivodeship'] = $voivodeships[0]['voivodeship_id'];
+        } else {
+            $place['voivodeship'] = null;
+        }
 
         $opinions = Opinion::where('object_id', '=', $id)->get()->toArray();
 
         $users = User::select('id', 'email')->get()->toArray();
         $users = array_column($users, 'email', 'id');
         $courses = Course::select('id', 'name')->get()->toArray();
+        $voivodeships = Voivodeship::select('id', 'name')->get()->toArray();
 
         $success = true;
 
-        return Response::json(compact('success', 'place', 'opinions', 'users', 'courses'));
+        return Response::json(compact('success', 'place', 'opinions', 'users', 'courses', 'voivodeships'));
     }
 
     public function courses() {
         $courses = Course::select('id', 'name')->get()->toArray();
+        $voivodeships = Voivodeship::select('id', 'name')->get()->toArray();
 
         $success = true;
 
-        return Response::json(compact('success', 'courses'));
+        return Response::json(compact('success', 'courses', 'voivodeships'));
     }
 
     public function searchCourses() {
@@ -147,6 +171,22 @@ class PlaceController extends Controller {
 
         $success = true;
         return Response::json(compact('success', 'courses'));
+    }
+
+    public function searchVoivodeships() {
+        $input = Input::all();
+        $search = '';
+        if (!empty($input['search'])) {
+            $search = $input['search'];
+        }
+        $search = '%' . $search . '%';
+        $voivodeships = Voivodeship::select('id', 'name')
+                ->where('name', 'like', $search)
+                ->get()
+                ->toArray();
+
+        $success = true;
+        return Response::json(compact('success', 'voivodeships'));
     }
 
     public function destroy($id) {

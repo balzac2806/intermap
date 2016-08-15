@@ -17,6 +17,8 @@ return array(
     'CreatePollTable' => $baseDir . '/database/migrations/2016_05_15_164308_create_poll_table.php',
     'CreatePollstersTable' => $baseDir . '/database/migrations/2016_05_15_183709_create_pollsters_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
+    'CreateVoivodeshipPlaceTable' => $baseDir . '/database/migrations/2016_08_15_200330_create_voivodeship_place_table.php',
+    'CreateVoivodeshipsTable' => $baseDir . '/database/migrations/2016_08_15_192907_create_voivodeships_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',

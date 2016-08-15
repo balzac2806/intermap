@@ -175,5 +175,21 @@ interMap.config(['$stateProvider', '$urlRouterProvider',
                     templateUrl: "front/views/courses/course.tpl.html",
                     controller: 'courseController',
                 })
+                // Województwa
+                .state('voivodeships', {
+                    url: "/voivodeships",
+                    templateUrl: "front/views/voivodeships/voivodeships.tpl.html",
+                    controller: 'voivodeshipsController',
+                })
+                .state('newVoivodeship', {
+                    url: "/voivodeship",
+                    templateUrl: "front/views/voivodeships/voivodeship.tpl.html",
+                    controller: 'voivodeshipController',
+                })
+                .state('editVoivodeship', {
+                    url: "/voivodeship/:voivodeshipId",
+                    templateUrl: "front/views/voivodeships/voivodeship.tpl.html",
+                    controller: 'voivodeshipController',
+                })
     }]);
 
