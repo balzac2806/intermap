@@ -158,6 +158,7 @@ class PlaceController extends Controller {
         $users = User::select('id', 'email')->get()->toArray();
         $users = array_column($users, 'email', 'id');
         $courses = Course::select('id', 'name')->get()->toArray();
+        $courses = array_column($courses, 'name', 'id');
         $voivodeships = Voivodeship::select('id', 'name')->get()->toArray();
 
         $success = true;

@@ -488,6 +488,7 @@ interMap.controller('placePageController', ['$scope', '$stateParams', '$rootScop
                             $scope.rate_place = response.data.place.rate;
                             $scope.opinions = response.data.opinions;
                             $scope.users = response.data.users;
+                            $scope.courses = response.data.courses;
                         } else {
                             growl.addErrorMessage(response.data.error);
                         }
