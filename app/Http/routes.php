@@ -36,6 +36,7 @@ Route::get('api/courses/place', 'PlaceController@courses');
 Route::get('api/courses/place/find', 'PlaceController@searchCourses');
 Route::get('api/voivodeships/place/find', 'PlaceController@searchVoivodeships');
 Route::delete('api/place/{id}', 'PlaceController@destroy');
+Route::get('api/places/get/from-url', 'PlaceController@getPlacesFromUrl');
 
 // Pytania 
 Route::post('api/poll', 'PollController@store');
@@ -79,6 +80,7 @@ Route::put('api/courses/{id}', 'CourseController@store');
 Route::get('api/courses', 'CourseController@create');
 Route::get('api/courses/{id}', 'CourseController@show');
 Route::delete('api/courses/{id}', 'CourseController@destroy');
+Route::get('api/courses/get/from-url', 'PlaceController@getCoursesFromUrl');
 
 // Województwa
 Route::post('api/voivodeships', 'VoivodeshipController@store');

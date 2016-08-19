@@ -9,8 +9,8 @@ use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Contracts\Support\Renderable;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
 
-class Response extends BaseResponse {
-
+class Response extends BaseResponse
+{
     use ResponseTrait;
 
     /**
@@ -33,7 +33,8 @@ class Response extends BaseResponse {
      * @param  mixed  $content
      * @return $this
      */
-    public function setContent($content) {
+    public function setContent($content)
+    {
         $this->original = $content;
 
         // If the content is "JSONable" we will set the appropriate header and convert
@@ -61,7 +62,8 @@ class Response extends BaseResponse {
      * @param  mixed   $content
      * @return string
      */
-    protected function morphToJson($content) {
+    protected function morphToJson($content)
+    {
         if ($content instanceof Jsonable) {
             return $content->toJson();
         }
@@ -75,11 +77,12 @@ class Response extends BaseResponse {
      * @param  mixed  $content
      * @return bool
      */
-    protected function shouldBeJson($content) {
+    protected function shouldBeJson($content)
+    {
         return $content instanceof Jsonable ||
-                $content instanceof ArrayObject ||
-                $content instanceof JsonSerializable ||
-                is_array($content);
+               $content instanceof ArrayObject ||
+               $content instanceof JsonSerializable ||
+               is_array($content);
     }
 
     /**
@@ -87,7 +90,8 @@ class Response extends BaseResponse {
      *
      * @return mixed
      */
-    public function getOriginalContent() {
+    public function getOriginalContent()
+    {
         return $this->original;
     }
 
@@ -97,27 +101,10 @@ class Response extends BaseResponse {
      * @param  \Exception  $e
      * @return $this
      */
-    public function withException(Exception $e) {
+    public function withException(Exception $e)
+    {
         $this->exception = $e;
 
         return $this;
     }
-
-    /**
-     * Return a new JSON response from the application.
-     *
-     * @param  string|array  $data
-     * @param  int    $status
-     * @param  array  $headers
-     * @param  int    $options
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public static function json($data = array(), $status = 200, array $headers = array(), $options = 0) {
-        if ($data instanceof ArrayableInterface) {
-            $data = $data->toArray();
-        }
-
-        return new JsonResponse($data, $status, $headers, $options);
-    }
-
 }

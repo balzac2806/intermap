@@ -14,7 +14,10 @@ use App\Http\Requests,
     App\Course,
     App\CoursesPlace,
     App\Voivodeship,
-    App\VoivodeshipPlace;
+    App\VoivodeshipPlace,
+    DOMDocument,
+    DomXPath,
+    Ixudra\Curl\Facades\Curl;
 
 class PlaceController extends Controller {
 
@@ -74,6 +77,22 @@ class PlaceController extends Controller {
             $orderby = $input['sort'];
 
             array_multisort($sortArray[$orderby], $sort, $data);
+        } else {
+            $sortArray = array();
+
+            foreach ($data as $place) {
+                foreach ($place as $key => $value) {
+                    if (!isset($sortArray[$key])) {
+                        $sortArray[$key] = array();
+                    }
+                    $sortArray[$key][] = $value;
+                }
+            }
+
+            $sort = SORT_ASC;
+            $orderby = 'name';
+
+            array_multisort($sortArray[$orderby], $sort, $data);
         }
 
         return Response::json(compact('success', 'data'));
@@ -81,10 +100,11 @@ class PlaceController extends Controller {
 
     public function store($id = null) {
         $input = Input::all();
-        $valid = new PlaceChangeRequest($input, $id);
 
-        if ($valid->fails())
-            return $valid->failResponse();
+        // Błąd po aktualizacji http-foundation
+//        $valid = new PlaceChangeRequest($input, $id);
+//        if ($valid->fails())
+//            return $valid->failResponse();
 
         $place = Place::createOrUpdate($input, $id);
 
@@ -259,8 +279,8 @@ class PlaceController extends Controller {
 
     public function getCoordinates() {
         $data = Place::select('id', 'name', 'address', 'city')
-                ->whereNull('lat')
-                ->orWhereNull('lng')
+//                ->whereNull('lat')
+//                ->orWhereNull('lng')
                 ->orderBy('name')
                 ->get();
 
@@ -292,13 +312,143 @@ class PlaceController extends Controller {
             if (!empty($coordinates)) {
                 Place::where('id', $data['id'])
                         ->update(array(
-                            'lat' => $coordinates['lat'],
-                            'lng' => $coordinates['lng']
+                            'lat' => !empty($coordinates['lat']) ? $coordinates['lat'] : null,
+                            'lng' => !empty($coordinates['lng']) ? $coordinates['lng'] : null,
                 ));
             }
         }
 
         return Response::json(compact('success', 'data'));
+    }
+
+    public function getCoursesFromUrl() {
+        libxml_use_internal_errors(true);
+        $url = 'http://www.perspektywy.pl/portal/index.php?option=com_content&view=article&id=22&Itemid=171';
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:33.0) Gecko/20100101 Firefox/33.0');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_COOKIE, TRUE);
+        curl_setopt($curl, CURLOPT_COOKIEFILE, 'xpath.txt');
+        curl_setopt($curl, CURLOPT_COOKIEJAR, 'xpath.txt');
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 10);
+        $str = curl_exec($curl);
+        curl_close($curl);
+
+        $dom = new DOMDocument();
+        $dom->loadHTML($str);
+        $xpath = new DomXPath($dom);
+
+        $courses = $xpath->query("//span[@class='kierunek_poj']");
+
+        for ($i = 0; $i < $courses->length; $i++) {
+            $data = [
+                'name' => strtolower($courses->item($i)->nodeValue)
+            ];
+//            Course::createOrUpdate($data);
+            var_dump($data['name']);
+        }
+        $courses = Course::getAll();
+        dd($courses);
+    }
+
+    public function getPlacesFromUrl() {
+        libxml_use_internal_errors(true);
+        $url = 'http://www.nauka.gov.pl/uczelnie-publiczne/wykaz-uczelni-publicznych-nadzorowanych-przez-ministra-wlasciwego-ds-szkolnictwa-wyzszego-publiczne-uczelnie-akademickie.html';
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:33.0) Gecko/20100101 Firefox/33.0');
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_COOKIE, TRUE);
+        curl_setopt($curl, CURLOPT_COOKIEFILE, 'xpath.txt');
+        curl_setopt($curl, CURLOPT_COOKIEJAR, 'xpath.txt');
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 10);
+        $str = curl_exec($curl);
+        curl_close($curl);
+
+        $dom = new DOMDocument();
+        $dom->loadHTML($str);
+        $xpath = new DomXPath($dom);
+
+        $places = $xpath->query("//div[@class='pelnaTresc']/ul/li/a");
+        $urls = $xpath->query("//div[@class='pelnaTresc']/ul/li/a/@href");
+
+        $dbPlaces = Place::select('name')->get()->toArray();
+        $dbPlaces = array_column($dbPlaces, 'name');
+
+        libxml_use_internal_errors(true);
+
+        $place_search = 'http://wybierzstudia.nauka.gov.pl/pages/search/index';
+
+        $response = Curl::to($place_search)
+                ->withData(array(
+                    'javax.faces.partial.ajax' => 'true',
+                    'javax.faces.source' => 'universityResults',
+                    'javax.faces.partial.execute' => 'universityResults',
+                    'javax.faces.partial.render' => 'universityResults',
+                    'universityResults' => 'universityResults',
+                    'universityResults_pagination' => 'true',
+                    'universityResults_first' => '0',
+                    'universityResults_rows' => '500',
+                    'name-panel-form' => 'name-panel-form'
+                ))
+                ->post();
+
+        $dom = new DOMDocument();
+        $dom->loadHTML($response);
+        $xpath = new DomXPath($dom);
+
+        $placesGovHrefs = $xpath->query("//td[@class='column2']/a/@href");
+        $placesGovTitles = $xpath->query("//td[@class='column2']/a/span");
+
+        for ($i = 0; $i < $places->length; $i++) {
+            for ($j = 0; $j < $placesGovTitles->length; $j++) {
+                if (!in_array($places->item($i)->nodeValue, $dbPlaces)) {
+                    if ($places->item($i)->nodeValue == $placesGovTitles->item($j)->nodeValue) {
+                        $query = [
+                            'universityId'
+                        ];
+                        $parts = parse_url($placesGovHrefs->item($j)->nodeValue);
+                        parse_str($parts['query'], $query);
+
+                        $placeUrl = 'http://wybierzstudia.nauka.gov.pl/pages/schoolinfo/school-master?fullProfile=false&universityId=' . $query['universityId'];
+
+                        $curl = curl_init();
+                        curl_setopt($curl, CURLOPT_URL, $placeUrl);
+                        curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:33.0) Gecko/20100101 Firefox/33.0');
+                        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+                        curl_setopt($curl, CURLOPT_COOKIE, TRUE);
+                        curl_setopt($curl, CURLOPT_COOKIEFILE, 'xpath.txt');
+                        curl_setopt($curl, CURLOPT_COOKIEJAR, 'xpath.txt');
+                        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 10);
+                        $str = curl_exec($curl);
+                        curl_close($curl);
+
+                        $dom = new DOMDocument();
+                        $dom->loadHTML($str);
+                        $xpath = new DomXPath($dom);
+                        $placeInfo = $xpath->query('//td[@role="gridcell"]/span');
+
+                        $data = [
+                            'name' => $places->item($i)->nodeValue,
+                            'site' => $urls->item($i)->nodeValue,
+                            'description' => $places->item($i)->nodeValue,
+                            'phone' => $placeInfo->item(12)->nodeValue,
+                            'address' => $placeInfo->item(8)->nodeValue,
+                            'post_code' => $placeInfo->item(10)->nodeValue,
+                            'city' => $placeInfo->item(6)->nodeValue,
+                            'lat' => '',
+                            'lng' => ''
+                        ];
+                        var_dump($data);
+                        Place::createOrUpdate($data);
+                    }
+                }
+            }
+        }
+        dd('exit');
     }
 
 }

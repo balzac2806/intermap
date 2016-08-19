@@ -22,7 +22,7 @@ class CourseController extends Controller {
      */
     protected function validator(array $data) {
         return Validator::make($data, [
-                    'name' => 'required'
+                    'name' => 'required|unique:courses,name,NULL,id'
         ]);
     }
 

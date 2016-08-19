@@ -93,6 +93,11 @@ interMap.controller('courseController', ['$scope', '$stateParams', '$rootScope',
                                 growl.addSuccessMessage('Kierunek został dodany !');
                                 $state.go('courses');
                             } else {
+                                if (angular.isDefined(response.data.error)) {
+                                    if (angular.isDefined(response.data.error.name) && response.data.error.name[0] == 'Adres name jest już zajęty.') {
+                                        growl.addErrorMessage('Już istnieje kierunek o takiej nazwie !');
+                                    }
+                                }
                                 $scope.error = response.data.error;
                             }
                         });
